@@ -6,11 +6,28 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:42:56 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/17 11:58:18 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/17 12:04:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static size_t	ft_strlen(const char *src)
+{
+	size_t	len;
+
+	if (!src)
+		return (0);
+	len = 0;
+	while (src[len])
+		len++;
+	return (len);
+}
+
+static void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}
 
 static int	invalid_arguments(char *program_name)
 {

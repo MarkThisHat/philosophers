@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/09/17 11:48:51 by maalexan         ###   ########.fr        #
+#    Updated: 2023/09/17 12:01:40 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,6 @@ SRC_DIR		:=	./srcs
 OBJ_DIR		:=	./objs
 BSRC_DIR	:=	./bonus/srcs
 HDR_DIR		:=	./incl
-FTLIB_DIR	:=	./libs/libft
-FTLIB		:=	$(FTLIB_DIR)/libft.a
 
 # Compilation flags
 CFLAGS		:=	-Wall -Wextra -Werror -g -I $(HDR_DIR)
@@ -36,11 +34,8 @@ BOBJ		:=	$(BFUN:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 # Insert -lpthread after libft?
-$(NAME): $(OBJ) $(FTLIB)
-	cc $(OBJ) $(FTLIB) -o $@
-
-$(FTLIB):
-	@$(MAKE) -C $(FTLIB_DIR) --silent
+$(NAME): $(OBJ) 
+	cc $(OBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -48,8 +43,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 bonus: $(NAMEB)
 
-$(NAMEB): $(BOBJ) $(FTLIB)
-	cc $(BOBJ) $(FTLIB) -o $@
+$(NAMEB): $(BOBJ)
+	cc $(BOBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(BSRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -59,11 +54,9 @@ val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./${NAME} || echo ""
 
 clean:
-	@$(MAKE) -C $(FTLIB_DIR) --silent clean
 	@[ -d ./objs ] && rm -rf ./objs || echo Object directory doesn\'t exist
 
 fclean: clean
-	@$(MAKE) -C $(FTLIB_DIR) --silent fclean
 	@[ -f ./$(NAME) ] && rm $(NAME) || echo Program $(NAME) isn\'t compiled
 	@[ -f ./$(NAMEB) ] && rm $(NAMEB)|| echo Bonus $(NAMEB) isn\'t compiled
 

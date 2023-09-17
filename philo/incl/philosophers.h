@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isblank.c                                       :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inwagner <inwagner@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 20:17:08 by inwagner          #+#    #+#             */
-/*   Updated: 2023/06/07 20:19:36 by inwagner         ###   ########.fr       */
+/*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
+/*   Updated: 2023/09/17 12:04:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-int	ft_isblank(int c)
-{
-	return (c == ' ' || c == '\t');
-}
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/time.h>
+# include <unistd.h>
+
+int	validate_args(int argc, char **argv);
+
+#endif
