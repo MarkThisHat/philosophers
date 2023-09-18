@@ -6,22 +6,23 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/09/17 12:01:40 by maalexan         ###   ########.fr        #
+#    Updated: 2023/09/18 16:03:19 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
 NAME		:=	philo
+NAMEB		:=	$(NAME)_bonus
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./srcs
 OBJ_DIR		:=	./objs
-BSRC_DIR	:=	./bonus/srcs
+BSRC_DIR	:=	../philo_bonus/srcs
 HDR_DIR		:=	./incl
 
 # Compilation flags
 CFLAGS		:=	-Wall -Wextra -Werror -g -I $(HDR_DIR)
-BCFLAGS		:=	-Wall -Wextra -Werror -g -I ./bonus/incl
+BCFLAGS		:=	-Wall -Wextra -Werror -g -I ../philo_bonus/incl
 
 # Source files
 FUN			:=	main.c \
@@ -51,7 +52,7 @@ $(OBJ_DIR)/%.o: $(BSRC_DIR)/%.c
 	@cc $(BCFLAGS) -c $< -o $@
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./${NAME} || echo ""
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME} || echo ""
 
 clean:
 	@[ -d ./objs ] && rm -rf ./objs || echo Object directory doesn\'t exist
