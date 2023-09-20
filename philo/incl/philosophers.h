@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/18 15:52:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:30:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,21 @@ typedef struct s_phil
 	int	forks;
 }	t_phil;
 
-int	validate_args(int argc, char **argv);
+typedef int	t_bool;
+
+# define TRUE 1
+# define FALSE 0
+# define STR_USAGE " <number of philosophers> \
+<time to die> \
+<time to eat> \
+<time to sleep> \
+<[number of times each philosopher must eat] (optional)>\n"
+
+t_bool			validate_args(int argc, char **argv);
+void			ft_putstr_fd(char *s, int fd);
+size_t			ft_strlen(const char *src);
+unsigned int	ft_atoui(const char *str);
+t_bool			ft_isdigit(int c);
 
 #endif
 
