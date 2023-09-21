@@ -6,11 +6,18 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 12:18:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:39:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+t_gazer	*get_observer(void)
+{
+	static t_gazer	beholder;
+
+	return (&beholder);
+}
 
 t_ullong	get_time(void)
 {
@@ -22,8 +29,6 @@ t_ullong	get_time(void)
 
 int	main(int argc, char **argv)
 {
-//	t_phil	**philosophers;
-
 	if (!validate_args(argc, argv))
 		return (1);
 	printf("Get time: %lli\n", get_time());

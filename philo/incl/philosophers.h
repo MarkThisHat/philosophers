@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 12:29:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:42:21 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,23 @@ typedef struct s_phil
 	int	number;
 	int	state;
 	int	forks;
+	int	meals_left;
 }	t_phil;
+
+typedef struct s_gazer
+{
+	t_phil	**philos;
+	int		die;
+	int		eat;
+	int		rest;
+	int		meals;
+}			t_gazer;
 
 typedef int					t_bool;
 typedef unsigned int		t_uint;
 typedef unsigned long long	t_ullong;
 
-# define TRUE 1
+# define TRUE 42
 # define FALSE 0
 # define MAX_PHIL 200
 # define STR_USAGE " <number of philosophers> \
