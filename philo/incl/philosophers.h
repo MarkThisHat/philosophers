@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/19 22:30:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:30:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef int	t_bool;
 
 # define TRUE 1
 # define FALSE 0
+# define MAX_PHIL 254
 # define STR_USAGE " <number of philosophers> \
 <time to die> \
 <time to eat> \
