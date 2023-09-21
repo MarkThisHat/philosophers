@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/20 22:30:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:29:55 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ typedef struct s_phil
 	int	forks;
 }	t_phil;
 
-typedef int	t_bool;
+typedef int					t_bool;
+typedef unsigned int		t_uint;
+typedef unsigned long long	t_ullong;
 
 # define TRUE 1
 # define FALSE 0
-# define MAX_PHIL 254
+# define MAX_PHIL 200
 # define STR_USAGE " <number of philosophers> \
 <time to die> \
 <time to eat> \
@@ -51,6 +53,7 @@ void			ft_putstr_fd(char *s, int fd);
 size_t			ft_strlen(const char *src);
 unsigned int	ft_atoui(const char *str);
 t_bool			ft_isdigit(int c);
+t_ullong		get_time(void);
 
 #endif
 
