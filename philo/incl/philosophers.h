@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:27:31 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:37:20 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ typedef struct s_phil
 
 typedef struct s_gazer
 {
-	t_phil	**philos;
-	int		**forks;
-	t_uint	die;
-	t_uint	eat;
-	t_uint	rest;
-	t_uint	meals;
+	t_phil		**philos;
+	int			**forks;
+	t_ullong	die;
+	t_ullong	eat;
+	t_ullong	rest;
+	t_ullong	meals;
 }			t_gazer;
 
 # define TRUE 42

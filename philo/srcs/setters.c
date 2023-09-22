@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:28:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:38:23 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 		meals = ft_atoul(argv[5]);
 	if (die > MAX_SET || eat > MAX_SET || rest > MAX_SET || meals > MAX_SET)
 		return (FALSE);
-	beholder->die = (t_uint)die;
-	beholder->eat = (t_uint)eat;
-	beholder->rest = (t_uint)rest;
-	beholder->meals = (t_uint)meals;
+	beholder->die = die;
+	beholder->eat = eat;
+	beholder->rest = rest;
+	beholder->meals = meals;
 	return (TRUE);
 }
 
@@ -41,5 +41,6 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder = get_observer();
 	if (!set_params(beholder, argc, argv))
 		return (FALSE);
+	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
 	return (TRUE);
 }
