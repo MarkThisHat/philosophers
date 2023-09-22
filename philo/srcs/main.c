@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 16:39:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:27:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_ullong	get_time(void)
 int	main(int argc, char **argv)
 {
 	if (!validate_args(argc, argv))
+		return (1);
+	if (!set_philosophers(argc, argv))
 		return (1);
 	printf("Get time: %lli\n", get_time());
 	printf("Get time2: %lli\n", get_time());

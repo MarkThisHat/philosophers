@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 16:42:21 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:27:31 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef int					t_bool;
+typedef unsigned int		t_uint;
+typedef unsigned long long	t_ullong;
+
 typedef enum e_state
 {
 	DEAD,
@@ -30,41 +34,41 @@ typedef enum e_state
 
 typedef struct s_phil
 {
-	int	number;
+	int	id;
 	int	state;
-	int	forks;
+	int	*left_fork;
+	int	*right_fork;
 	int	meals_left;
 }	t_phil;
 
 typedef struct s_gazer
 {
 	t_phil	**philos;
-	int		die;
-	int		eat;
-	int		rest;
-	int		meals;
+	int		**forks;
+	t_uint	die;
+	t_uint	eat;
+	t_uint	rest;
+	t_uint	meals;
 }			t_gazer;
-
-typedef int					t_bool;
-typedef unsigned int		t_uint;
-typedef unsigned long long	t_ullong;
 
 # define TRUE 42
 # define FALSE 0
 # define MAX_PHIL 200
+# define MAX_SET 4294967295
 # define STR_USAGE " <number of philosophers> \
 <time to die> \
 <time to eat> \
 <time to sleep> \
 <[number of times each philosopher must eat] (optional)>\n"
 
-t_bool			validate_args(int argc, char **argv);
-void			ft_putstr_fd(char *s, int fd);
-size_t			ft_strlen(const char *src);
-unsigned int	ft_atoui(const char *str);
-t_bool			ft_isdigit(int c);
-t_ullong		get_time(void);
-
+t_gazer		*get_observer(void);
+t_bool		validate_args(int argc, char **argv);
+void		ft_putstr_fd(char *s, int fd);
+size_t		ft_strlen(const char *src);
+t_ullong	ft_atoul(const char *str);
+t_bool		ft_isdigit(int c);
+t_ullong	get_time(void);
+t_bool		set_philosophers(int argc, char **argv);
 #endif
 
 /*
