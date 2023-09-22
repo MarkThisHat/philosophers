@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:38:23 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:55:37 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,39 @@ t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 	return (TRUE);
 }
 
+static t_bool	clear_guests(t_gazer *beholder)
+{
+	int	i;
+
+	i = 0;
+	while (beholder->philos[++i])
+		free(beholder->philos[i]);
+	return (FALSE);
+}
+
+static t_bool	set_the_table(t_gazer *beholder, int amount)
+{
+	int	i;
+
+	i = -1;
+	while (++i < amount)
+	{
+		beholder->forks[i] = NULL;
+		beholder->philos[i] = NULL;
+	}
+	i = 0;
+	while (++i < amount)
+	{
+		beholder->philos[i] = malloc(sizeof(t_gazer));
+		if (!beholder->philos[i])
+			return (clear_guests(beholder));
+	}
+	beholder->philos[0] = malloc(sizeof(char));
+	if (!beholder->philos[0])
+		return (clear_guests(beholder));
+	return (TRUE);
+}
+
 t_bool	set_philosophers(int argc, char **argv)
 {
 	t_gazer	*beholder;
@@ -41,6 +74,21 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder = get_observer();
 	if (!set_params(beholder, argc, argv))
 		return (FALSE);
+	beholder->philos = malloc(sizeof(void *) * beholder->highest + 1);
+	if (!beholder->philos)
+		return (FALSE);
+	beholder->forks = malloc(sizeof(int *) * beholder->highest);
+	if (!beholder->forks)
+	{
+		free(beholder->philos);
+		return (FALSE);
+	}
+	if (!set_the_table(beholder, beholder->highest + 1))
+	{
+		free(beholder->philos);
+		free(beholder->forks);
+		return (FALSE);
+	}
 	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
 	return (TRUE);
 }

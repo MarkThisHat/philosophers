@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:42:56 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:36:32 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:56:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static t_bool	check_usability(int argc, char **argv)
 	philosophers = (t_uint)ft_atoul(argv[0]);
 	if (philosophers > MAX_PHIL || !philosophers)
 		return (FALSE);
+	get_observer()->highest = philosophers;
 	return (TRUE);
 }
 

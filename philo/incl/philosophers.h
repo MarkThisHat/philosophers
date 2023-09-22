@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:37:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:55:48 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_phil
 
 typedef struct s_gazer
 {
-	t_phil		**philos;
+	void		**philos;
 	int			**forks;
+	t_uint		highest;
 	t_ullong	die;
 	t_ullong	eat;
 	t_ullong	rest;
