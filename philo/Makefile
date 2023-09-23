@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/09/23 11:52:14 by maalexan         ###   ########.fr        #
+#    Updated: 2023/09/23 16:03:52 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,16 @@ HDR_DIR		:=	./incl
 CFLAGS		:=	-Wall -Wextra -Werror -g -I $(HDR_DIR)
 BCFLAGS		:=	-Wall -Wextra -Werror -g -I ../philo_bonus/incl
 
-# Source files
-FUN			:=	main.c \
-				args.c \
-				setters.c \
-				time.c \
+# Source files: main, args, setters, time, helpers, utils
+FUN			:=	nihilism.c \
+				dialetic.c \
+				praxis.c \
+				atomism.c \
+				hermeneutics.c \
+				heuristics.c \
 				fatalism.c \
-				helpers.c \
-				utils.c
+				existentialism.c 
+
 
 # Object files
 OBJ			:=	$(FUN:%.c=$(OBJ_DIR)/%.o)
