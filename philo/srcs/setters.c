@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 16:55:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 21:27:07 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,19 @@ static t_bool	set_the_table(t_gazer *beholder, int amount)
 
 	i = -1;
 	while (++i < amount)
-	{
-		beholder->forks[i] = NULL;
 		beholder->philos[i] = NULL;
-	}
 	i = 0;
 	while (++i < amount)
 	{
 		beholder->philos[i] = malloc(sizeof(t_gazer));
 		if (!beholder->philos[i])
 			return (clear_guests(beholder));
+		*((t_gazer *)beholder->philos[i]) = (t_gazer){0};
 	}
-	beholder->philos[0] = malloc(sizeof(char));
+	beholder->philos[0] = malloc(sizeof(t_gazer));
 	if (!beholder->philos[0])
 		return (clear_guests(beholder));
+	*((t_gazer *)beholder->philos[0]) = (t_gazer){0};
 	return (TRUE);
 }
 
@@ -74,7 +73,7 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder = get_observer();
 	if (!set_params(beholder, argc, argv))
 		return (FALSE);
-	beholder->philos = malloc(sizeof(void *) * beholder->highest + 1);
+	beholder->philos = malloc(sizeof(void *) * (beholder->highest + 1));
 	if (!beholder->philos)
 		return (FALSE);
 	beholder->forks = malloc(sizeof(int *) * beholder->highest);
@@ -88,6 +87,11 @@ t_bool	set_philosophers(int argc, char **argv)
 		free(beholder->philos);
 		free(beholder->forks);
 		return (FALSE);
+	}
+	for (t_uint i = 0; i < beholder->highest + 1; i++)
+	{
+		if (beholder->philos[i])
+			printf("philo %i\n", i);
 	}
 	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
 	return (TRUE);
