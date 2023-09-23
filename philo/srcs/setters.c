@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 22:35:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:49:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,24 @@ static t_bool	set_guests(t_gazer *beholder, int amount)
 	return (TRUE);
 }
 
-static void	set_philosophers_forks(t_gazer *beholder, t_uint amount)
+static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 {
-	t_uint	i;
+	t_uint		i;
+	t_ullong	meals;
 
-	i = 1;
+	meals = get_observer()->meals;
+	i = 0;
 	while (i < amount)
 	{
 		beholder->philos[i]->left_fork = beholder->forks[i];
-		beholder->philos[i]->right_fork = beholder->forks[i - 1];
+		if (i)
+			beholder->philos[i]->right_fork = beholder->forks[i - 1];
+		else
+			beholder->philos[i]->right_fork = beholder->forks[amount - 1];
+		beholder->philos[i]->id = i + 1;
+		beholder->philos[i]->meals_left = meals;
 		i++;
 	}
-	beholder->philos[0]->left_fork = beholder->forks[0];
-	beholder->philos[0]->right_fork = beholder->forks[amount - 1];
 }
 
 t_bool	set_philosophers(int argc, char **argv)
@@ -103,7 +108,7 @@ t_bool	set_philosophers(int argc, char **argv)
 		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))
 		return (free_gazer(beholder));
-	set_philosophers_forks(beholder, beholder->highest);
+	set_philosophers_stats(beholder, beholder->highest);
 	for (t_uint i = 0; i < beholder->highest; i++)
 	{
 		if (beholder->philos[i])
@@ -114,7 +119,7 @@ t_bool	set_philosophers(int argc, char **argv)
 	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
 	for (t_uint i = 0; i < beholder->highest; i++)
 	{
-		printf("Philo %i has fork %i to the left and fork %i to the right\n", i + 1, *beholder->philos[i]->right_fork, *beholder->philos[i]->left_fork);
+		printf("Philo %i has fork %i to the left and fork %i to the right\n", beholder->philos[i]->id, *beholder->philos[i]->right_fork, *beholder->philos[i]->left_fork);
 	}
 	end_dinner();
 	return (TRUE);
