@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 22:12:57 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/23 11:51:49 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ typedef enum e_state
 
 typedef struct s_phil
 {
-	int	id;
-	int	state;
-	int	*left_fork;
-	int	*right_fork;
-	int	meals_left;
+	int			id;
+	int			state;
+	int			*left_fork;
+	int			*right_fork;
+	int			meals_left;
+	t_ullong	last_meal;
 }	t_phil;
 
 typedef struct s_gazer
@@ -50,6 +51,7 @@ typedef struct s_gazer
 	t_ullong	eat;
 	t_ullong	rest;
 	t_ullong	meals;
+	t_ullong	pulse;
 }			t_gazer;
 
 # define TRUE 42
@@ -68,11 +70,13 @@ void		ft_putstr_fd(char *s, int fd);
 size_t		ft_strlen(const char *src);
 t_ullong	ft_atoul(const char *str);
 t_bool		ft_isdigit(int c);
-t_ullong	get_time(void);
+t_ullong	get_time_micro(void);
+t_ullong	get_time_mili(void);
 t_bool		set_philosophers(int argc, char **argv);
 t_bool		clear_guests(t_gazer *beholder, int max);
 t_bool		clear_cutlery(t_gazer *beholder, int max);
 t_bool		free_gazer(t_gazer *beholder);
+void		threads_of_fate(t_gazer *beholder);
 void		end_dinner(void);
 
 #endif

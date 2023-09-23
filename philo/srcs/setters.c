@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 22:49:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/23 11:25:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ static t_bool	set_guests(t_gazer *beholder, int amount)
 static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 {
 	t_uint		i;
-	t_ullong	meals;
 
-	meals = get_observer()->meals;
 	i = 0;
 	while (i < amount)
 	{
@@ -83,7 +81,8 @@ static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 		else
 			beholder->philos[i]->right_fork = beholder->forks[amount - 1];
 		beholder->philos[i]->id = i + 1;
-		beholder->philos[i]->meals_left = meals;
+		beholder->philos[i]->meals_left = get_observer()->meals;
+		beholder->philos[i]->state = THINKING;
 		i++;
 	}
 }
@@ -109,18 +108,5 @@ t_bool	set_philosophers(int argc, char **argv)
 	if (!set_the_table(beholder, beholder->highest))
 		return (free_gazer(beholder));
 	set_philosophers_stats(beholder, beholder->highest);
-	for (t_uint i = 0; i < beholder->highest; i++)
-	{
-		if (beholder->philos[i])
-			printf("philo %i\n", i + 1);
-		if (beholder->forks[i])
-			printf("fork %i\n", *beholder->forks[i]);
-	}
-	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
-	for (t_uint i = 0; i < beholder->highest; i++)
-	{
-		printf("Philo %i has fork %i to the left and fork %i to the right\n", beholder->philos[i]->id, *beholder->philos[i]->right_fork, *beholder->philos[i]->left_fork);
-	}
-	end_dinner();
 	return (TRUE);
 }
