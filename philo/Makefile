@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/09/21 21:56:21 by maalexan         ###   ########.fr        #
+#    Updated: 2023/09/22 21:57:09 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ BCFLAGS		:=	-Wall -Wextra -Werror -g -I ../philo_bonus/incl
 FUN			:=	main.c \
 				args.c \
 				setters.c \
+				helpers.c \
 				utils.c
 
 # Object files

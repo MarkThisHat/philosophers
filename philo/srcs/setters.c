@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 21:52:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:21:16 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,26 @@ t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 	return (TRUE);
 }
 
-static t_bool	clear_guests(t_gazer *beholder, int max)
+static t_bool	set_the_table(t_gazer *beholder, t_uint amount)
 {
-	int	i;
+	t_uint	i;
 
 	i = 0;
-	while (i < max)
-		free(beholder->philos[i++]);
-	return (FALSE);
+	while (i < amount)
+	{
+		beholder->forks[i] = malloc(sizeof(int));
+		if (!beholder->forks[i])
+		{
+			clear_guests(beholder, 0);
+			return (clear_cutlery(beholder, i));
+		}
+		*beholder->forks[i] = i + 1;
+		i++;
+	}
+	return (TRUE);
 }
 
-static t_bool	set_the_table(t_gazer *beholder, int amount)
+static t_bool	set_guests(t_gazer *beholder, int amount)
 {
 	int	i;
 
@@ -75,20 +84,18 @@ t_bool	set_philosophers(int argc, char **argv)
 		free(beholder->philos);
 		return (FALSE);
 	}
+	if (!set_guests(beholder, beholder->highest))
+		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))
-	{
-		free(beholder->philos);
-		free(beholder->forks);
-		return (FALSE);
-	}
+		return (free_gazer(beholder));
 	for (t_uint i = 0; i < beholder->highest; i++)
 	{
 		if (beholder->philos[i])
 			printf("philo %i\n", i + 1);
+		if (beholder->forks[i])
+			printf("fork %i\n", *beholder->forks[i]);
 	}
 	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", beholder->die, beholder->eat, beholder->rest, beholder->meals);
-	clear_guests(beholder, beholder->highest);
-	free(beholder->philos);
-	free(beholder->forks);
+	end_dinner();
 	return (TRUE);
 }
