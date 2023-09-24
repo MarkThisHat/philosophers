@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/23 11:51:49 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/24 12:11:29 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,15 @@ t_ullong	ft_atoul(const char *str);
 t_bool		ft_isdigit(int c);
 t_ullong	get_time_micro(void);
 t_ullong	get_time_mili(void);
+t_ullong	get_time_current(t_ullong last_meal);
 t_bool		set_philosophers(int argc, char **argv);
 t_bool		clear_guests(t_gazer *beholder, int max);
 t_bool		clear_cutlery(t_gazer *beholder, int max);
 t_bool		free_gazer(t_gazer *beholder);
 void		threads_of_fate(t_gazer *beholder);
 void		end_dinner(void);
+
+void	have_dinner(t_gazer *beholder, int base_beat);
 
 #endif
 
