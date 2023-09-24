@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   nihilism.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/23 11:37:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:24:39 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!set_philosophers(argc, argv))
 		return (1);
-	printf("Get time micro: %lli\n", get_time_micro());
+/*	printf("Get time micro: %lli\n", get_time_micro());
 	printf("Get time mili 2: %lli\n", get_time_mili());
-	printf("Get time mili 3: %lli\n", get_time_mili());
+	printf("Get time mili 3: %lli\n", get_time_mili()); */
 	threads_of_fate(get_observer());
 	end_dinner();
 }
