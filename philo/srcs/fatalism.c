@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/24 11:45:40 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:12:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	threads_of_fate(t_gazer *beholder)
 		*beholder->philos[i]->left_fork);
 		printf("It has the timestamp of %lli\n", beholder->philos[i]->last_meal);
 	}*/
-	have_dinner(beholder, base_beat);
+	have_dinner(beholder->philos[0], base_beat);
 }

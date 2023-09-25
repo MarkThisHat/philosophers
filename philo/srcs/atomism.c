@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 10:59:07 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/24 12:06:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:23:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ t_ullong	get_time_mili(void)
 t_ullong	get_time_current(t_ullong last_meal)
 {
 	return (get_time_micro() - last_meal);
+}
+
+int	get_time_left(t_phil *phil, t_ullong die)
+{
+	return ((int)(die - get_time_current(phil->last_meal)));
 }
