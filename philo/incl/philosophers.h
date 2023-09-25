@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/25 20:12:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:15:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_bool		free_gazer(t_gazer *beholder);
 void		threads_of_fate(t_gazer *beholder);
 void		end_dinner(void);
 
-void	have_dinner(t_phil *phil, int rate);
+void		have_dinner(t_phil *phil, int rate);
 
 #endif
 
