@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setters.c                                          :+:      :+:    :+:   */
+/*   praxis.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/23 11:25:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:41:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,7 @@ t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 	return (TRUE);
 }
 
-static t_bool	set_the_table(t_gazer *beholder, t_uint amount)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < amount)
-	{
-		beholder->forks[i] = malloc(sizeof(int));
-		if (!beholder->forks[i])
-		{
-			clear_guests(beholder, 0);
-			return (clear_cutlery(beholder, i));
-		}
-		*beholder->forks[i] = i + 1;
-		i++;
-	}
-	return (TRUE);
-}
-
-static t_bool	set_guests(t_gazer *beholder, int amount)
+static t_bool	set_the_table(t_gazer *beholder, int amount)
 {
 	int	i;
 
@@ -64,6 +45,7 @@ static t_bool	set_guests(t_gazer *beholder, int amount)
 		if (!beholder->philos[i])
 			return (clear_guests(beholder, i));
 		*beholder->philos[i] = (t_phil){0};
+		beholder->forks[i] = i + 1;
 	}
 	return (TRUE);
 }
@@ -75,11 +57,11 @@ static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 	i = 0;
 	while (i < amount)
 	{
-		beholder->philos[i]->left_fork = beholder->forks[i];
+		beholder->philos[i]->left_fork = &beholder->forks[i];
 		if (i)
-			beholder->philos[i]->right_fork = beholder->forks[i - 1];
+			beholder->philos[i]->right_fork = &beholder->forks[i - 1];
 		else
-			beholder->philos[i]->right_fork = beholder->forks[amount - 1];
+			beholder->philos[i]->right_fork = &beholder->forks[amount - 1];
 		beholder->philos[i]->id = i + 1;
 		beholder->philos[i]->meals_left = get_observer()->meals;
 		beholder->philos[i]->state = THINKING;
@@ -97,14 +79,12 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder->philos = malloc(sizeof(t_phil *) * beholder->highest);
 	if (!beholder->philos)
 		return (FALSE);
-	beholder->forks = malloc(sizeof(int *) * beholder->highest);
+	beholder->forks = malloc(sizeof(int) * beholder->highest);
 	if (!beholder->forks)
 	{
 		free(beholder->philos);
 		return (FALSE);
 	}
-	if (!set_guests(beholder, beholder->highest))
-		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))
 		return (free_gazer(beholder));
 	set_philosophers_stats(beholder, beholder->highest);

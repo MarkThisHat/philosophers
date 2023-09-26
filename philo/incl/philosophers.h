@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/25 20:15:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:37:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_phil
 typedef struct s_gazer
 {
 	t_phil		**philos;
-	int			**forks;
+	int			*forks;
 	t_uint		highest;
 	t_ullong	die;
 	t_ullong	eat;
@@ -76,7 +76,6 @@ t_ullong	get_time_current(t_ullong last_meal);
 int			get_time_left(t_phil *phil, t_ullong die);
 t_bool		set_philosophers(int argc, char **argv);
 t_bool		clear_guests(t_gazer *beholder, int max);
-t_bool		clear_cutlery(t_gazer *beholder, int max);
 t_bool		free_gazer(t_gazer *beholder);
 void		threads_of_fate(t_gazer *beholder);
 void		end_dinner(void);

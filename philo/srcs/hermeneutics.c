@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   hermeneutics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/22 22:12:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/26 20:37:31 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ t_bool	clear_guests(t_gazer *beholder, int max)
 	i = 0;
 	while (i < max)
 		free(beholder->philos[i++]);
-	return (FALSE);
-}
-
-t_bool	clear_cutlery(t_gazer *beholder, int max)
-{
-	int	i;
-
-	i = 0;
-	while (i < max)
-		free(beholder->forks[i++]);
 	return (FALSE);
 }
 
@@ -45,6 +35,5 @@ void	end_dinner(void)
 
 	beholder = get_observer();
 	clear_guests(beholder, beholder->highest);
-	clear_cutlery(beholder, beholder->highest);
 	free_gazer(beholder);
 }
