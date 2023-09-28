@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 22:54:51 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:21:35 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,39 @@ void	sleeping(t_phil *phil, t_ullong rest)
 		return ;
 	phil->state = SLEEPING;
 	if (simulating())
-		printf("%lli %i is sleeping\n", get_time_mili(), phil->id);
+		printf(STR_SLEEP, get_time_mili(), phil->id);
 	if (simulating())
 		usleep(rest);
 	if (simulating())
 		phil->state = THINKING;
 	if (simulating())
-		printf("%lli %i is thinking\n", get_time_mili(), phil->id);
+		printf(STR_THINK, get_time_mili(), phil->id);
 }
 
-void	eating(t_phil *phil, t_ullong eat)
+void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
 {
 	if (phil->state == DEAD)
 		return ;
 	phil->state = EATING;
 	if (simulating())
-		printf("%lli %i is eating\n", get_time_mili(), phil->id);
+		printf(STR_EAT, get_time_mili(), phil->id);
 	phil->last_meal = get_time_micro();
 	if (phil->meals_left)
 		phil->meals_left--;
 	if (simulating())
-		usleep(eat);
+		usleep(beholder->eat);
+	if (!pthread_mutex_unlock(&beholder->mutexes[second]))
+	{
+		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
+		beholder->simulating = END;
+		return ;
+	}
+	if (!pthread_mutex_unlock(&beholder->mutexes[first]))
+	{
+		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
+		beholder->simulating = END;
+		return ;
+	}
 	sleeping(phil, get_observer()->rest);
 }
 
@@ -47,19 +59,17 @@ static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 	t_bool	end;
 
 	end = FALSE;
-	if (simulating() && pthread_mutex_lock(&beholder->mutexes[first]))
+	if (!pthread_mutex_lock(&beholder->mutexes[first]))
 	{
-		printf("%lli %i has taken a fork\n", get_time_mili(), phil->id);
-		if (simulating() && pthread_mutex_lock(&beholder->mutexes[second]))
+		if (simulating())
+			printf(STR_FORK, get_time_mili(), phil->id);
+		if (!pthread_mutex_lock(&beholder->mutexes[second]))
 		{
-			printf("%lli %i has taken a fork\n", get_time_mili(), phil->id);
-			eating(phil, beholder->eat);
-			if (pthread_mutex_unlock(&beholder->mutexes[second]))
-				end = END;
+			if (simulating())
+				printf(STR_FORK, get_time_mili(), phil->id);
+			eating(phil, beholder, first, second);
 		}
 		else
-			end = END;
-		if (pthread_mutex_unlock(&beholder->mutexes[first]))
 			end = END;
 	}
 	else

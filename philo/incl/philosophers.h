@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 22:32:27 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:21:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef enum e_state
 typedef struct s_phil
 {
 	int					id;
-	int					state;
-	int					meals_left;
+	_Atomic int			state;
+	_Atomic int			meals_left;
 	_Atomic t_ullong	last_meal;
 	int					*left_fork;
 	int					*right_fork;
@@ -53,7 +53,6 @@ typedef struct s_gazer
 	t_ullong		eat;
 	t_ullong		rest;
 	t_ullong		meals;
-	t_ullong		pulse;
 }					t_gazer;
 
 # define TRUE 42
@@ -67,8 +66,14 @@ typedef struct s_gazer
 <time to sleep> \
 <[number of times each philosopher must eat] (optional)>\n"
 # define STR_MUTEX_CREATE  "Failed to create mutex\n"
-# define STR_MUTEX_LOCK  "Failed to lock/unlock mutex\n"
+# define STR_MUTEX_LOCK  "Failed to lock mutex\n"
+# define STR_MUTEX_UNLOCK  "Failed to lock mutex\n"
 # define STR_MUTEX_DESTROY "Failed to destroy mutex\n"
+# define STR_FORK "%lli %i has taken a fork\n"
+# define STR_EAT "%lli %i is eating\n"
+# define STR_SLEEP "%lli %i is sleeping\n"
+# define STR_THINK "%lli %i is thinking\n"
+# define STR_DEAD "%lli %i died\n"
 
 t_gazer		*get_observer(void);
 t_bool		simulating(void);
@@ -89,6 +94,7 @@ int			threads_of_fate(t_gazer *beholder);
 void		end_dinner(void);
 
 void		have_dinner(t_phil *phil, t_gazer *beholder);
+void		oversee_dinner(t_gazer *beholder);
 
 #endif
 

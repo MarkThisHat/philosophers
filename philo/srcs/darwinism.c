@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 22:51:50 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:21:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	oversee_dinner(t_gazer *beholder)
 		{
 			if (time > beholder->philos[i]->last_meal)
 			{
-				printf("%lli %i died\n",\
-					get_time_mili(), beholder->philos[i]->id);
+				printf(STR_DEAD, get_time_mili(), beholder->philos[i]->id);
 				beholder->philos[i]->state = DEAD;
 				beholder->simulating = END;
 			}
