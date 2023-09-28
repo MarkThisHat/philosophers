@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/09/23 16:03:52 by maalexan         ###   ########.fr        #
+#    Updated: 2023/09/27 22:49:43 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ FUN			:=	nihilism.c \
 				hermeneutics.c \
 				heuristics.c \
 				fatalism.c \
-				existentialism.c 
+				existentialism.c \
+				darwinism.c
 
 
 # Object files

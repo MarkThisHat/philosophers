@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 22:33:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:54:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 {
 	t_bool	end;
 
-	if (phil->state == DEAD)
-		return ;
 	end = FALSE;
-	if (pthread_mutex_lock(&beholder->mutexes[first]))
+	if (simulating() && pthread_mutex_lock(&beholder->mutexes[first]))
 	{
-		if (pthread_mutex_lock(&beholder->mutexes[second]))
+		printf("%lli %i has taken a fork\n", get_time_mili(), phil->id);
+		if (simulating() && pthread_mutex_lock(&beholder->mutexes[second]))
 		{
+			printf("%lli %i has taken a fork\n", get_time_mili(), phil->id);
 			eating(phil, beholder->eat);
 			if (pthread_mutex_unlock(&beholder->mutexes[second]))
 				end = END;
