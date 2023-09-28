@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/24 11:24:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:08:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@ t_gazer	*get_observer(void)
 	return (&beholder);
 }
 
+t_bool	simulating(void)
+{
+	return (!get_observer()->simulating);
+}
+
 int	main(int argc, char **argv)
 {
+	int	end;
+
 	if (!validate_args(argc, argv))
 		return (1);
 	if (!set_philosophers(argc, argv))
@@ -28,8 +35,9 @@ int	main(int argc, char **argv)
 /*	printf("Get time micro: %lli\n", get_time_micro());
 	printf("Get time mili 2: %lli\n", get_time_mili());
 	printf("Get time mili 3: %lli\n", get_time_mili()); */
-	threads_of_fate(get_observer());
+	end = threads_of_fate(get_observer());
 	end_dinner();
+	return (end);
 }
 
 /*

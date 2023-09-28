@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/26 20:48:16 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:02:18 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ t_bool	set_philosophers(int argc, char **argv)
 		free(beholder->philos);
 		return (FALSE);
 	}
+	beholder->mutexes = malloc(sizeof(pthread_mutex_t) * beholder->highest);
+	if (!beholder->mutexes)
+		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))
 		return (free_gazer(beholder));
 	set_philosophers_stats(beholder, beholder->highest);

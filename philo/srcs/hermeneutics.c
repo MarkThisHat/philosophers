@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/26 20:37:31 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:00:10 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	end_dinner(void)
 
 	beholder = get_observer();
 	clear_guests(beholder, beholder->highest);
+	free(beholder->mutexes);
 	free_gazer(beholder);
 }

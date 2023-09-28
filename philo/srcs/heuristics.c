@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   heuristics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/21 22:11:17 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:00:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,18 @@ t_ullong	ft_atoul(const char *str)
 	while (ft_isdigit(*str))
 		n = 10 * n + (*str++ - '0');
 	return (n);
+}
+
+void	set_cutlery(int *first, int *second, int *left, int *right)
+{
+	if (*left < *right)
+	{
+		*first = *left;
+		*second = *right;
+	}
+	else
+	{
+		*first = *right;
+		*second = *left;
+	}
 }
