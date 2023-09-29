@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 23:21:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:14:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_gazer
 {
 	t_phil			**philos;
 	int				*forks;
+	pthread_t		*threads;
 	pthread_mutex_t	*mutexes;
 	_Atomic t_bool	simulating;
 	t_uint			highest;
@@ -91,9 +92,11 @@ t_bool		set_philosophers(int argc, char **argv);
 t_bool		clear_guests(t_gazer *beholder, int max);
 t_bool		free_gazer(t_gazer *beholder);
 int			threads_of_fate(t_gazer *beholder);
+t_bool		start_threading(t_gazer *beholder);
+t_bool		finish_threading(t_gazer *beholder, int max);
 void		end_dinner(void);
 
-void		have_dinner(t_phil *phil, t_gazer *beholder);
+void		have_dinner(t_phil *phil);
 void		oversee_dinner(t_gazer *beholder);
 
 #endif

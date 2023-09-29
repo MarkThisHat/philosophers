@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 22:42:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:30:39 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ int	threads_of_fate(t_gazer *beholder)
 	if (!mutex_ettiquete(beholder))
 		return (1);
 	diffuse_time(beholder->philos, get_time_micro(), beholder->highest);
-/*	for (t_uint i = 0; i < beholder->highest; i++)
-	{
-		printf("Philo %i has fork %i to the left and fork %i to the right\n", \
-		beholder->philos[i]->id, *beholder->philos[i]->right_fork, \
-		*beholder->philos[i]->left_fork);
-		printf("It has the timestamp of %lli\n", beholder->philos[i]->last_meal);
-	}*/
-	have_dinner(beholder->philos[3], beholder);
+	if (!start_threading(beholder))
+		return (1);
+	while (simulating())
+		;
+/*	oversee_dinner(beholder);
+	have_dinner(beholder->philos[i]);*/
 	mutex_clean(beholder, beholder->highest);
 	return (0);
 }
