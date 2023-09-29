@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 13:14:33 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:23:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 void	*have_dinner(void *arg)
 {
 	t_phil	*phil;
-	int		first_fork;
-	int		second_fork;
+	int		first;
+	int		second;
 
 	phil = (t_phil *)arg;
-	forks_priority(&first_fork, &second_fork, phil->left_fork, phil->right_fork);
+	forks_priority(&first, &second, phil->left_fork, phil->right_fork);
 	while (simulating() && phil->state)
-		pick_fork(phil, first_fork - 1, second_fork - 1, get_observer());
+		pick_fork(phil, first - 1, second - 1, get_observer());
 	return (NULL);
 }
