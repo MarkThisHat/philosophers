@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/28 21:14:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:12:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ t_bool		start_threading(t_gazer *beholder);
 t_bool		finish_threading(t_gazer *beholder, int max);
 void		end_dinner(void);
 
-void		have_dinner(t_phil *phil);
-void		oversee_dinner(t_gazer *beholder);
+void		*have_dinner(void *arg);
+void		*oversee_dinner(void *arg);
 
 #endif
 

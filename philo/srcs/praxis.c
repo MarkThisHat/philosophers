@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:17:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 
 static t_bool	set_threads(t_gazer *beholder)
 {
-	beholder->threads = malloc(sizeof(pthread_t) * beholder->highest + 1);
+	beholder->threads = malloc(sizeof(pthread_t) * (beholder->highest + 1));
 	if (!beholder->threads)
 		return (FALSE);
 	beholder->mutexes = malloc(sizeof(pthread_mutex_t) * beholder->highest);

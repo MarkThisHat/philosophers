@@ -6,17 +6,19 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/28 21:34:23 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:39:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	oversee_dinner(t_gazer *beholder)
+void	*oversee_dinner(void *arg)
 {
 	t_uint		i;
 	t_ullong	time;
+	t_gazer		*beholder;
 
+	beholder = (t_gazer *)arg;
 	while (simulating())
 	{
 		i = 0;
@@ -35,6 +37,7 @@ void	oversee_dinner(t_gazer *beholder)
 			i++;
 		}
 	}
+	return (NULL);
 }
 
 t_bool	finish_threading(t_gazer *beholder, int max)
@@ -54,15 +57,15 @@ t_bool	start_threading(t_gazer *beholder)
 	t_phil		**phil;
 	pthread_t	*threads;
 
-	max = beholder->highest + 1;//fix
+	max = beholder->highest + 1;
 	threads = beholder->threads;
 	phil = beholder->philos;
-	if (!pthread_create(&threads[max], NULL, oversee_dinner, beholder))
+	if (pthread_create(&threads[max - 1], NULL, oversee_dinner, beholder))
 		return (FALSE);
-	i = 1;
-	while (i < max)
+	i = 0;
+	while (i < max - 1)
 	{
-		if (!pthread_create(&threads[i], NULL, have_dinner, phil[i]))
+		if (pthread_create(&threads[i], NULL, have_dinner, phil[i]))
 			return (finish_threading(beholder, i));
 		i++;
 	}
