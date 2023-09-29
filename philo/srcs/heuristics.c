@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 21:00:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:09:59 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_ullong	ft_atoul(const char *str)
 	return (n);
 }
 
-void	set_cutlery(int *first, int *second, int *left, int *right)
+void	forks_priority(int *first, int *second, int *left, int *right)
 {
 	if (*left < *right)
 	{

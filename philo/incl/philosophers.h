@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 11:12:25 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:09:54 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_ullong	get_time_micro(void);
 t_ullong	get_time_mili(void);
 t_ullong	get_time_current(t_ullong last_meal);
 int			get_time_left(t_phil *phil, t_ullong die);
-void		set_cutlery(int *first, int *second, int *left, int *right);
+void		forks_priority(int *first, int *second, int *left, int *right);
 t_bool		set_philosophers(int argc, char **argv);
 t_bool		clear_guests(t_gazer *beholder, int max);
 t_bool		free_gazer(t_gazer *beholder);

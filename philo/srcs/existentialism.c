@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 11:14:09 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:14:33 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	*have_dinner(void *arg)
 	int		second_fork;
 
 	phil = (t_phil *)arg;
-	set_cutlery(&first_fork, &second_fork, phil->left_fork, phil->right_fork);
+	forks_priority(&first_fork, &second_fork, phil->left_fork, phil->right_fork);
 	while (simulating() && phil->state)
-		pick_fork(phil, first_fork, second_fork, get_observer());
+		pick_fork(phil, first_fork - 1, second_fork - 1, get_observer());
 	return (NULL);
 }
