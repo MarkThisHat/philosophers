@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/27 21:08:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:46:29 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!set_philosophers(argc, argv))
 		return (1);
-/*	printf("Get time micro: %lli\n", get_time_micro());
-	printf("Get time mili 2: %lli\n", get_time_mili());
-	printf("Get time mili 3: %lli\n", get_time_mili()); */
 	end = threads_of_fate(get_observer());
 	end_dinner();
 	return (end);
 }
 
-/*
+/*	printf("Get time micro: %lli\n", get_time_micro());
+	printf("Get time mili 2: %lli\n", get_time_mili());
+	printf("Get time mili 3: %lli\n", get_time_mili());
 for (t_uint i = 0; i < beholder->highest; i++)
 	{
 		if (beholder->philos[i])

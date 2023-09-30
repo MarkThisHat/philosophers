@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 13:23:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:43:35 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,18 @@ void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
 		phil->meals_left--;
 	if (simulating())
 		usleep(beholder->eat);
-	if (!pthread_mutex_unlock(&beholder->mutexes[second]))
-	{
-		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
-		beholder->simulating = END;
-		return ;
-	}
-	if (!pthread_mutex_unlock(&beholder->mutexes[first]))
-	{
-		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
-		beholder->simulating = END;
-		return ;
-	}
-	sleeping(phil, get_observer()->rest);
+	if (unlock_mutex(beholder->mutexes, first, second))
+		sleeping(phil, get_observer()->rest);
 }
 
 static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 {
-	t_bool	end;
+	t_bool	proceed;
 
-	end = FALSE;
-	if (!pthread_mutex_lock(&beholder->mutexes[first]))
-	{
-		if (simulating())
-			printf(STR_FORK, get_time_mili(), phil->id);
-		if (!pthread_mutex_lock(&beholder->mutexes[second]))
-		{
-			if (simulating())
-				printf(STR_FORK, get_time_mili(), phil->id);
-			eating(phil, beholder, first, second);
-		}
-		else
-			end = END;
-	}
-	else
-		end = END;
-	if (end)
+	proceed = lock_mutex(phil, beholder->mutexes, first, second);
+	if (simulating() && proceed)
+		eating(phil, beholder, first, second);
+	else if (simulating() && !proceed)
 	{
 		ft_putstr_fd(STR_MUTEX_LOCK, STDERR_FILENO);
 		beholder->simulating = END;

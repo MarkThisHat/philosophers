@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 11:39:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:45:49 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,45 @@ void	*oversee_dinner(void *arg)
 	return (NULL);
 }
 
+t_bool	unlock_mutex(pthread_mutex_t *mutexes, int first, int last)
+{
+	if (simulating() && !pthread_mutex_unlock(&mutexes[last]))
+	{
+		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
+		get_observer()->simulating = END;
+		return (FALSE);
+	}
+	if (simulating() && !pthread_mutex_unlock(&mutexes[first]))
+	{
+		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
+		get_observer()->simulating = END;
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool	lock_mutex(t_phil *phil, pthread_mutex_t *mutexes, int first, int last)
+{
+	if (!simulating())
+		return (FALSE);
+	if (!pthread_mutex_lock(&mutexes[first]))
+	{
+		if (simulating())
+			printf(STR_FORK, get_time_mili(), phil->id);
+		else
+			return (FALSE);
+		if (simulating() && !pthread_mutex_lock(&mutexes[last]))
+		{
+			if (simulating())
+			{
+				printf(STR_FORK, get_time_mili(), phil->id);
+				return (TRUE);
+			}
+		}
+	}
+	return (FALSE);
+}
+
 t_bool	finish_threading(t_gazer *beholder, int max)
 {
 	int	i;
@@ -60,8 +99,6 @@ t_bool	start_threading(t_gazer *beholder)
 	max = beholder->highest + 1;
 	threads = beholder->threads;
 	phil = beholder->philos;
-	if (pthread_create(&threads[max - 1], NULL, oversee_dinner, beholder))
-		return (FALSE);
 	i = 0;
 	while (i < max - 1)
 	{
@@ -69,5 +106,7 @@ t_bool	start_threading(t_gazer *beholder)
 			return (finish_threading(beholder, i));
 		i++;
 	}
+	if (pthread_create(&threads[i], NULL, oversee_dinner, beholder))
+		return (finish_threading(beholder, i));
 	return (TRUE);
 }

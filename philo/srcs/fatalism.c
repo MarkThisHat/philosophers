@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 11:40:26 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:46:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	threads_of_fate(t_gazer *beholder)
 		return (1);
 	while (simulating())
 		;
-/*	oversee_dinner(beholder);
-	have_dinner(beholder->philos[i]);*/
 	finish_threading(beholder, beholder->highest + 1);
 	mutex_clean(beholder, beholder->highest);
 	return (0);

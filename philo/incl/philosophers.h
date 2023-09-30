@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 13:09:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:42:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef int					t_bool;
 typedef unsigned int		t_uint;
 typedef unsigned long long	t_ullong;
+typedef pthread_mutex_t		t_pmutex;
 
 typedef enum e_state
 {
@@ -95,7 +96,8 @@ int			threads_of_fate(t_gazer *beholder);
 t_bool		start_threading(t_gazer *beholder);
 t_bool		finish_threading(t_gazer *beholder, int max);
 void		end_dinner(void);
-
+t_bool		lock_mutex(t_phil *phil, t_pmutex *mutexes, int first, int last);
+t_bool		unlock_mutex(pthread_mutex_t *mutexes, int first, int last);
 void		*have_dinner(void *arg);
 void		*oversee_dinner(void *arg);
 
