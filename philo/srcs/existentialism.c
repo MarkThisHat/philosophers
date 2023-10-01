@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 22:43:35 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:33:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
 		phil->meals_left--;
 	if (simulating())
 		usleep(beholder->eat);
-	if (unlock_mutex(beholder->mutexes, first, second))
-		sleeping(phil, get_observer()->rest);
+	if (unlock_mutex(beholder->mutexes, first))
+		if (unlock_mutex(beholder->mutexes, second))
+			sleeping(phil, get_observer()->rest);
 }
 
 static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)

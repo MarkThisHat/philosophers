@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 22:45:49 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:40:48 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,11 @@ void	*oversee_dinner(void *arg)
 	return (NULL);
 }
 
-t_bool	unlock_mutex(pthread_mutex_t *mutexes, int first, int last)
+t_bool	unlock_mutex(pthread_mutex_t *mutexes, int index)
 {
-	if (simulating() && !pthread_mutex_unlock(&mutexes[last]))
-	{
-		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
-		get_observer()->simulating = END;
+	if (!simulating())
 		return (FALSE);
-	}
-	if (simulating() && !pthread_mutex_unlock(&mutexes[first]))
+	if (!pthread_mutex_unlock(&mutexes[index]))
 	{
 		ft_putstr_fd(STR_MUTEX_UNLOCK, STDERR_FILENO);
 		get_observer()->simulating = END;
@@ -66,8 +62,8 @@ t_bool	lock_mutex(t_phil *phil, pthread_mutex_t *mutexes, int first, int last)
 		if (simulating())
 			printf(STR_FORK, get_time_mili(), phil->id);
 		else
-			return (FALSE);
-		if (simulating() && !pthread_mutex_lock(&mutexes[last]))
+			return (unlock_mutex(mutexes, first));
+		if (!pthread_mutex_lock(&mutexes[last]))
 		{
 			if (simulating())
 			{
