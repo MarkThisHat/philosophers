@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:20:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_bool	clear_guests(t_gazer *beholder, int max)
 
 t_bool	free_gazer(t_gazer *beholder)
 {
-	free(beholder->forks);
 	free(beholder->philos);
 	return (FALSE);
 }

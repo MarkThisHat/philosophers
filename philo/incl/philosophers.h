@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 18:32:35 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:23:06 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 typedef int					t_bool;
 typedef unsigned int		t_uint;
-typedef unsigned long long	t_ullong;
 typedef pthread_mutex_t		t_pmutex;
 
 typedef enum e_state
@@ -35,26 +34,25 @@ typedef enum e_state
 
 typedef struct s_phil
 {
-	int					id;
-	_Atomic int			state;
-	_Atomic int			meals_left;
-	_Atomic t_ullong	last_meal;
-	int					*left_fork;
-	int					*right_fork;
-}						t_phil;
+	int				id;
+	_Atomic int		state;
+	_Atomic int		meals_left;
+	_Atomic time_t	last_meal;
+	int				left_fork;
+	int				right_fork;
+}					t_phil;
 
 typedef struct s_gazer
 {
 	t_phil			**philos;
-	int				*forks;
 	pthread_t		*threads;
 	pthread_mutex_t	*mutexes;
 	_Atomic t_bool	simulating;
 	t_uint			highest;
-	t_ullong		die;
-	t_ullong		eat;
-	t_ullong		rest;
-	t_ullong		meals;
+	time_t			die;
+	time_t			eat;
+	time_t			rest;
+	time_t			meals;
 }					t_gazer;
 
 # define TRUE 42
@@ -71,35 +69,35 @@ typedef struct s_gazer
 # define STR_MUTEX_LOCK  "Failed to lock mutex\n"
 # define STR_MUTEX_UNLOCK  "Failed to lock mutex\n"
 # define STR_MUTEX_DESTROY "Failed to destroy mutex\n"
-# define STR_FORK "%lli %i has taken a fork\n"
-# define STR_EAT "%lli %i is eating\n"
-# define STR_SLEEP "%lli %i is sleeping\n"
-# define STR_THINK "%lli %i is thinking\n"
-# define STR_DEAD "%lli %i died\n"
+# define STR_FORK "%li %i has taken a fork\n"
+# define STR_EAT "%li %i is eating\n"
+# define STR_SLEEP "%li %i is sleeping\n"
+# define STR_THINK "%li %i is thinking\n"
+# define STR_DEAD "%li %i died\n"
 
-t_gazer		*get_observer(void);
-t_bool		simulating(void);
-t_bool		validate_args(int argc, char **argv);
-void		ft_putstr_fd(char *s, int fd);
-size_t		ft_strlen(const char *src);
-t_ullong	ft_atoul(const char *str);
-t_bool		ft_isdigit(int c);
-t_ullong	get_time_micro(void);
-t_ullong	get_time_mili(void);
-t_ullong	get_time_current(t_ullong last_meal);
-int			get_time_left(t_phil *phil, t_ullong die);
-void		forks_priority(int *first, int *second, int *left, int *right);
-t_bool		set_philosophers(int argc, char **argv);
-t_bool		clear_guests(t_gazer *beholder, int max);
-t_bool		free_gazer(t_gazer *beholder);
-int			threads_of_fate(t_gazer *beholder);
-t_bool		start_threading(t_gazer *beholder);
-t_bool		finish_threading(t_gazer *beholder, int max);
-void		end_dinner(void);
-t_bool		lock_mutex(t_phil *phil, t_pmutex *mutexes, int first, int last);
-t_bool		unlock_mutex(pthread_mutex_t *mutexes, int index);
-void		*have_dinner(void *arg);
-void		*oversee_dinner(void *arg);
+t_gazer	*get_observer(void);
+t_bool	simulating(void);
+t_bool	validate_args(int argc, char **argv);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlen(const char *src);
+time_t	ft_atoul(const char *str);
+t_bool	ft_isdigit(int c);
+time_t	get_time_micro(void);
+time_t	get_time_mili(void);
+time_t	get_time_current(time_t last_meal);
+int		get_time_left(t_phil *phil, time_t die);
+void	forks_priority(int *first, int *second, int left, int right);
+t_bool	set_philosophers(int argc, char **argv);
+t_bool	clear_guests(t_gazer *beholder, int max);
+t_bool	free_gazer(t_gazer *beholder);
+int		threads_of_fate(t_gazer *beholder);
+t_bool	start_threading(t_gazer *beholder);
+t_bool	finish_threading(t_gazer *beholder, int max);
+void	end_dinner(void);
+t_bool	lock_mutex(t_phil *phil, t_pmutex *mutexes, int first, int last);
+t_bool	unlock_mutex(pthread_mutex_t *mutexes, int index);
+void	*have_dinner(void *arg);
+void	*oversee_dinner(void *arg);
 
 #endif
 

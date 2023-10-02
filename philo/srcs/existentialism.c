@@ -6,13 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 18:33:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:23:37 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	sleeping(t_phil *phil, t_ullong rest)
+void	sleeping(t_phil *phil, time_t rest)
 {
 	if (phil->state == DEAD)
 		return ;

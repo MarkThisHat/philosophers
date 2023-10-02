@@ -6,13 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 18:37:47 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:20:47 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	diffuse_time(t_phil **philos, t_ullong time, t_uint amount)
+static void	diffuse_time(t_phil **philos, time_t time, t_uint amount)
 {
 	t_uint	i;
 

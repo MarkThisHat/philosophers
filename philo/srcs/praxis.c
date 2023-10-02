@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 11:17:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:17:20 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 {
-	t_ullong	die;
-	t_ullong	eat;
-	t_ullong	rest;
-	t_ullong	meals;
+	time_t	die;
+	time_t	eat;
+	time_t	rest;
+	time_t	meals;
 
 	die = ft_atoul(argv[2]) * 1000;
 	eat = ft_atoul(argv[3]) * 1000;
@@ -45,7 +45,6 @@ static t_bool	set_the_table(t_gazer *beholder, int amount)
 		if (!beholder->philos[i])
 			return (clear_guests(beholder, i));
 		*beholder->philos[i] = (t_phil){0};
-		beholder->forks[i] = i + 1;
 	}
 	return (TRUE);
 }
@@ -57,11 +56,11 @@ static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 	i = 0;
 	while (i < amount)
 	{
-		beholder->philos[i]->right_fork = &beholder->forks[i];
+		beholder->philos[i]->right_fork = i;
 		if (i)
-			beholder->philos[i]->left_fork = &beholder->forks[i - 1];
+			beholder->philos[i]->left_fork = i - 1;
 		else
-			beholder->philos[i]->left_fork = &beholder->forks[amount - 1];
+			beholder->philos[i]->left_fork = amount - 1;
 		beholder->philos[i]->id = i + 1;
 		beholder->philos[i]->meals_left = get_observer()->meals;
 		beholder->philos[i]->state = THINKING;
@@ -93,12 +92,6 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder->philos = malloc(sizeof(t_phil *) * beholder->highest);
 	if (!beholder->philos)
 		return (FALSE);
-	beholder->forks = malloc(sizeof(int) * beholder->highest);
-	if (!beholder->forks)
-	{
-		free(beholder->philos);
-		return (FALSE);
-	}
 	if (!set_threads(beholder))
 		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))

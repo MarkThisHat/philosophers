@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 13:09:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:22:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_bool	ft_isdigit(int c)
 	return ((unsigned)c - '0' < 10);
 }
 
-t_ullong	ft_atoul(const char *str)
+time_t	ft_atoul(const char *str)
 {
-	t_ullong	n;
+	time_t	n;
 
 	n = 0;
 	while (ft_isdigit(*str))
@@ -44,16 +44,16 @@ t_ullong	ft_atoul(const char *str)
 	return (n);
 }
 
-void	forks_priority(int *first, int *second, int *left, int *right)
+void	forks_priority(int *first, int *second, int left, int right)
 {
-	if (*left < *right)
+	if (left < right)
 	{
-		*first = *left;
-		*second = *right;
+		*first = left;
+		*second = right;
 	}
 	else
 	{
-		*first = *right;
-		*second = *left;
+		*first = right;
+		*second = left;
 	}
 }
