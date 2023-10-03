@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/03 16:45:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:03:48 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,14 @@ static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 	proceed = lock_mutex(phil, beholder->mutexes, first);
 	if (simulating() && proceed)
 	{
-		lock_mutex(phil, beholder->mutexes, second);
-		eating(phil, beholder, first, second);
+		proceed = lock_mutex(phil, beholder->mutexes, second);
+		if (simulating() && proceed)
+		{
+			eating(phil, beholder, first, second);
+			return ;
+		}
 	}
-	else if (simulating() && !proceed)
+	if (simulating() && !proceed)
 	{
 		ft_putstr_fd(STR_MUTEX_LOCK, STDERR_FILENO);
 		beholder->simulating = END;
