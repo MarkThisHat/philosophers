@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/03 16:30:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:12:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ typedef struct s_gazer
 <time to sleep> \
 <[number of times each philosopher must eat] (optional)>\n"
 # define STR_MUTEX_CREATE  "Failed to create mutex\n"
-# define STR_MUTEX_LOCK  "Failed to lock mutex\n"
-# define STR_MUTEX_UNLOCK  "Failed to lock mutex\n"
 # define STR_MUTEX_DESTROY "Failed to destroy mutex\n"
 # define STR_FORK "%li %i has taken a fork\n"
 # define STR_EAT "%li %i is eating\n"
