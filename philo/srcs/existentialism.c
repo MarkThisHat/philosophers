@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 22:23:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:45:54 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,23 @@ void	sleeping(t_phil *phil, time_t rest)
 {
 	if (phil->state == DEAD)
 		return ;
-	phil->state = SLEEPING;
-	if (simulating())
-		printf(STR_SLEEP, get_time_mili(), phil->id);
+	else
+		phil->state = SLEEPING;
+	printer(STR_SLEEP, phil->id);
 	if (simulating())
 		usleep(rest);
-	if (simulating())
+	if (phil->state)
 		phil->state = THINKING;
-	if (simulating())
-		printf(STR_THINK, get_time_mili(), phil->id);
+	printer(STR_THINK, phil->id);
 }
 
 void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
 {
 	if (phil->state == DEAD)
 		return ;
-	phil->state = EATING;
-	if (simulating())
-		printf(STR_EAT, get_time_mili(), phil->id);
+	else
+		phil->state = EATING;
+	printer(STR_EAT, phil->id);
 	phil->last_meal = get_time_micro();
 	if (phil->meals_left)
 		phil->meals_left--;
@@ -48,9 +47,12 @@ static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
 {
 	t_bool	proceed;
 
-	proceed = lock_mutex(phil, beholder->mutexes, first, second);
+	proceed = lock_mutex(phil, beholder->mutexes, first);
 	if (simulating() && proceed)
+	{
+		lock_mutex(phil, beholder->mutexes, second);
 		eating(phil, beholder, first, second);
+	}
 	else if (simulating() && !proceed)
 	{
 		ft_putstr_fd(STR_MUTEX_LOCK, STDERR_FILENO);

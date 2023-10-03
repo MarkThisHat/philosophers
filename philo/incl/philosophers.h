@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 22:23:06 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:30:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 typedef int					t_bool;
 typedef unsigned int		t_uint;
-typedef pthread_mutex_t		t_pmutex;
 
 typedef enum e_state
 {
@@ -46,6 +45,7 @@ typedef struct s_gazer
 {
 	t_phil			**philos;
 	pthread_t		*threads;
+	pthread_mutex_t	printer;
 	pthread_mutex_t	*mutexes;
 	_Atomic t_bool	simulating;
 	t_uint			highest;
@@ -94,8 +94,9 @@ int		threads_of_fate(t_gazer *beholder);
 t_bool	start_threading(t_gazer *beholder);
 t_bool	finish_threading(t_gazer *beholder, int max);
 void	end_dinner(void);
-t_bool	lock_mutex(t_phil *phil, t_pmutex *mutexes, int first, int last);
+t_bool	lock_mutex(t_phil *phil, pthread_mutex_t *mutexes, int index);
 t_bool	unlock_mutex(pthread_mutex_t *mutexes, int index);
+t_bool	printer(char *str, int id);
 void	*have_dinner(void *arg);
 void	*oversee_dinner(void *arg);
 
