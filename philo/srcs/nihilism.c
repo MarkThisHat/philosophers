@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/09/29 22:46:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:55:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,14 @@ for (t_uint i = 0; i < beholder->highest; i++)
 	{
 		if (beholder->philos[i])
 			printf("philo %i\n", i + 1);
-		if (beholder->forks[i])
-			printf("fork %i\n", *beholder->forks[i]);
 	}
-	printf("Die: %lli\nEat: %lli\nSleep: %lli\nMeals %lli\n", \
+	printf("Die: %li\nEat: %li\nSleep: %li\nMeals %li\n", \
 	beholder->die, beholder->eat, beholder->rest, beholder->meals);
 	for (t_uint i = 0; i < beholder->highest; i++)
 	{
-		printf("Philo %i has fork %i to the left and fork %i to the right\n", \
-		beholder->philos[i]->id, \*beholder->philos[i]->right_fork, \
-		*beholder->philos[i]->left_fork);
+		printf("Philo %i has fork %i as first and fork %i as second\n", \
+		beholder->philos[i]->id, beholder->philos[i]->first_fork, \
+		beholder->philos[i]->second_fork);
 	}
 	end_dinner();
 
