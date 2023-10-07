@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/03 16:34:58 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:57:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static t_bool	mutex_clean(t_gazer *beholder, t_uint max)
 			ft_putstr_fd(STR_MUTEX_DESTROY, STDERR_FILENO);
 		i++;
 	}
+	if (pthread_mutex_destroy(&beholder->printer))
+		ft_putstr_fd(STR_MUTEX_DESTROY, STDERR_FILENO);
 	return (FALSE);
 }
 
