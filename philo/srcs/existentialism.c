@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/06 12:10:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:44:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sleeping(t_phil *phil, time_t rest)
 	printer(STR_THINK, phil->id);
 }
 
-void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
+void	eating(t_phil *phil, t_gazer *beholder)
 {
 	if (phil->state == DEAD)
 		return ;
@@ -38,29 +38,26 @@ void	eating(t_phil *phil, t_gazer *beholder, int first, int second)
 		phil->meals_left--;
 	if (simulating())
 		usleep(beholder->eat);
-	if (unlock_mutex(beholder->mutexes, first))
-		if (unlock_mutex(beholder->mutexes, second))
+	if (unlock_mutex(beholder->mutexes, phil->first_fork))
+		if (unlock_mutex(beholder->mutexes, phil->second_fork))
 			sleeping(phil, get_observer()->rest);
 }
 
-static void	pick_fork(t_phil *phil, int first, int second, t_gazer *beholder)
+static void	pick_fork(t_phil *phil, t_gazer *beholder)
 {
 	if (!simulating())
 		return ;
-	if (lock_mutex(phil, beholder->mutexes, first))
-		if (lock_mutex(phil, beholder->mutexes, second))
-			eating(phil, beholder, first, second);
+	if (lock_mutex(phil, beholder->mutexes, phil->first_fork))
+		if (lock_mutex(phil, beholder->mutexes, phil->second_fork))
+			eating(phil, beholder);
 }
 
 void	*have_dinner(void *arg)
 {
 	t_phil	*phil;
-	int		first;
-	int		second;
 
 	phil = (t_phil *)arg;
-	forks_priority(&first, &second, phil->left_fork, phil->right_fork);
-	while (simulating() && phil->state)
-		pick_fork(phil, first - 1, second - 1, get_observer());
+	while (simulating() && phil->state != DEAD)
+		pick_fork(phil, get_observer());
 	return (NULL);
 }

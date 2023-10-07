@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 22:17:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:43:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ static t_bool	set_the_table(t_gazer *beholder, int amount)
 
 static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 {
-	t_uint		i;
+	t_uint	i;
+	int		left;
+	int		right;
 
 	i = 0;
 	while (i < amount)
 	{
-		beholder->philos[i]->right_fork = i;
+		right = i;
 		if (i)
-			beholder->philos[i]->left_fork = i - 1;
+			left = i - 1;
 		else
-			beholder->philos[i]->left_fork = amount - 1;
+			left = amount - 1;
+		forks_priority(beholder->philos[i], left, right);
 		beholder->philos[i]->id = i + 1;
 		beholder->philos[i]->meals_left = get_observer()->meals;
 		beholder->philos[i]->state = THINKING;

@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/03 17:12:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:44:12 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ typedef struct s_phil
 	_Atomic int		state;
 	_Atomic int		meals_left;
 	_Atomic time_t	last_meal;
-	int				left_fork;
-	int				right_fork;
+	int				first_fork;
+	int				second_fork;
+	int				held_forks;
 }					t_phil;
 
 typedef struct s_gazer
@@ -84,7 +85,7 @@ time_t	get_time_micro(void);
 time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);
 int		get_time_left(t_phil *phil, time_t die);
-void	forks_priority(int *first, int *second, int left, int right);
+void	forks_priority(t_phil *phil, int left, int right);
 t_bool	set_philosophers(int argc, char **argv);
 t_bool	clear_guests(t_gazer *beholder, int max);
 t_bool	free_gazer(t_gazer *beholder);

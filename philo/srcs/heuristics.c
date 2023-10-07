@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/01 22:22:09 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:44:40 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ time_t	ft_atoul(const char *str)
 	return (n);
 }
 
-void	forks_priority(int *first, int *second, int left, int right)
+void	forks_priority(t_phil *phil, int left, int right)
 {
 	if (left < right)
 	{
-		*first = left;
-		*second = right;
+		phil->first_fork = left;
+		phil->second_fork = right;
 	}
 	else
 	{
-		*first = right;
-		*second = left;
+		phil->first_fork = right;
+		phil->second_fork = left;
 	}
 }
