@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/07 17:46:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 10:16:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 void	sleeping(t_phil *phil, time_t rest)
 {
-	if (phil->state == DEAD)
-		return ;
-	else
+	if (phil->state != DEAD)
 		phil->state = SLEEPING;
 	printer(STR_SLEEP, phil->id);
 	if (simulating())
 		usleep(rest);
-	if (phil->state)
+	if (phil->state != DEAD)
 		phil->state = THINKING;
 	printer(STR_THINK, phil->id);
 }
 
 void	eating(t_phil *phil, t_gazer *beholder)
 {
-	if (phil->state == DEAD)
-		return ;
-	else
+	if (phil->state != DEAD)
 		phil->state = EATING;
 	printer(STR_EAT, phil->id);
 	phil->last_meal = get_time_micro();
