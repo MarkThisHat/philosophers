@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 10:15:50 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 10:25:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*oversee_dinner(void *arg)
 				beholder->simulating = END;
 			else if (get_time_micro() > demise)
 			{
-				printf(STR_DEAD, get_time_mili(), beholder->philos[i]->id);
+				printer(STR_DEAD, beholder->philos[i]->id);
 				beholder->philos[i]->state = DEAD;
 				beholder->simulating = END;
 			}
