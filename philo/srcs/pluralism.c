@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 18:17:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 19:48:32 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,14 @@ static time_t	time_of_death(t_phil *philo, time_t die)
 	return (philo->last_meal + die);
 }
 
-t_bool	over_and_out(t_gazer *beholder)
-{
-	t_uint	i;
-
-	i = -1;
-	while (++i < beholder->highest)
-		beholder->philos[i]->state = OVER;
-	return (END);
-}
-
 static t_bool	loop_simulation(t_gazer *beholder)
 {
 	t_uint	i;
 	time_t	demise;
+	time_t	time;
 
 	i = 0;
+	time = get_time_micro();
 	while (i < beholder->highest)
 	{
 		demise = time_of_death(beholder->philos[i], beholder->die);
@@ -41,7 +33,7 @@ static t_bool	loop_simulation(t_gazer *beholder)
 			beholder->simulating = over_and_out(beholder);
 			return (FALSE);
 		}
-		else if (get_time_micro() > demise)
+		else if (time > demise)
 		{
 			printer(STR_DEAD, beholder->philos[i]->id);
 			beholder->simulating = over_and_out(beholder);

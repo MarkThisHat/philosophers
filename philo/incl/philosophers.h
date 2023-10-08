@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 18:13:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 19:49:33 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ time_t	get_time_current(time_t last_meal);
 int		get_time_left(t_phil *phil, time_t die);
 void	forks_priority(t_phil *phil, int left, int right);
 t_bool	set_philosophers(int argc, char **argv);
+t_bool	over_and_out(t_gazer *beholder);
 t_bool	clear_guests(t_gazer *beholder, int max);
 t_bool	free_gazer(t_gazer *beholder);
 int		threads_of_fate(t_gazer *beholder);
