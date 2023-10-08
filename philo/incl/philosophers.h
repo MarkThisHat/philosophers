@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/07 17:46:47 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 18:13:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef unsigned int		t_uint;
 
 typedef enum e_state
 {
-	DEAD,
+	OVER,
 	EATING,
 	SLEEPING,
 	THINKING

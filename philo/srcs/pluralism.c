@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 10:25:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 18:17:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,50 @@ static time_t	time_of_death(t_phil *philo, time_t die)
 	return (philo->last_meal + die);
 }
 
-void	*oversee_dinner(void *arg)
+t_bool	over_and_out(t_gazer *beholder)
+{
+	t_uint	i;
+
+	i = -1;
+	while (++i < beholder->highest)
+		beholder->philos[i]->state = OVER;
+	return (END);
+}
+
+static t_bool	loop_simulation(t_gazer *beholder)
 {
 	t_uint	i;
 	time_t	demise;
-	t_gazer	*beholder;
 
-	beholder = (t_gazer *)arg;
-	while (simulating())
+	i = 0;
+	while (i < beholder->highest)
+	{
+		demise = time_of_death(beholder->philos[i], beholder->die);
+		if (beholder->meals && !beholder->philos[i]->meals_left)
+		{
+			beholder->simulating = over_and_out(beholder);
+			return (FALSE);
+		}
+		else if (get_time_micro() > demise)
+		{
+			printer(STR_DEAD, beholder->philos[i]->id);
+			beholder->simulating = over_and_out(beholder);
+			return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
+void	*oversee_dinner(void *arg)
+{
+	t_bool	carry_on;
+
+	carry_on = 1;
+	while (carry_on)
 	{
 		usleep(100);
-		i = 0;
-		while (i < beholder->highest && !beholder->simulating)
-		{
-			demise = time_of_death(beholder->philos[i], beholder->die);
-			if (beholder->meals && !beholder->philos[i]->meals_left)
-				beholder->simulating = END;
-			else if (get_time_micro() > demise)
-			{
-				printer(STR_DEAD, beholder->philos[i]->id);
-				beholder->philos[i]->state = DEAD;
-				beholder->simulating = END;
-			}
-			i++;
-		}
+		carry_on = loop_simulation((t_gazer *)arg);
 	}
 	return (NULL);
 }

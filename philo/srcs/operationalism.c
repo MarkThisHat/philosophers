@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:08:42 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/07 17:45:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:48:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	printer(char *str, int id)
 t_bool	unlock_mutex(t_phil *phil, pthread_mutex_t *mutexes, int index)
 {
 	if (!pthread_mutex_unlock(&mutexes[index]))
-		phil->held_forks--;
+			phil->held_forks--;
 	else
 		get_observer()->simulating = END;
 	return (TRUE);
