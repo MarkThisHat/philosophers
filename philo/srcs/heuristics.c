@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 20:48:57 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:08:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void	forks_priority(t_phil *phil, int left, int right)
 		phil->second_fork = left;
 	}
 	if (get_observer()->highest % 2 && phil->id % 2)
-		ft_swap(&phil->first_fork, &phil->second_fork);
+		if (phil->id != 1)
+			ft_swap(&phil->first_fork, &phil->second_fork);
 }
