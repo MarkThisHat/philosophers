@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/08 19:49:33 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:59:39 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_putstr_fd(char *s, int fd);
 size_t	ft_strlen(const char *src);
 time_t	ft_atoul(const char *str);
 t_bool	ft_isdigit(int c);
+void	ft_swap(int *a, int *b);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);

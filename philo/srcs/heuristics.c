@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/11 12:08:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:59:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,4 @@ void	ft_swap(int *a, int *b)
 	temp = *a;
 	*a = *b;
 	*b = temp;
-}
-
-void	forks_priority(t_phil *phil, int left, int right)
-{
-	if (left < right)
-	{
-		phil->first_fork = left;
-		phil->second_fork = right;
-	}
-	else
-	{
-		phil->first_fork = right;
-		phil->second_fork = left;
-	}
-	if (get_observer()->highest % 2 && phil->id % 2)
-		if (phil->id != 1)
-			ft_swap(&phil->first_fork, &phil->second_fork);
 }
