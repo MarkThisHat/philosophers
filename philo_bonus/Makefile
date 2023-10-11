@@ -6,23 +6,23 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/10/11 18:01:11 by maalexan         ###   ########.fr        #
+#    Updated: 2023/10/11 18:01:33 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	philo
+BNAME		:=	philo_bonus
 
 # Directories for source, object and libraries
-SRC_DIR		:=	./srcs
-OBJ_DIR		:=	./objs
-HDR_DIR		:=	./incl
+BSRC_DIR	:=	./srcs
+BOBJ_DIR	:=	./objs
+BHDR_DIR	:=	./incl
 
-# Compilation flags (remove the g)
-CFLAGS		:=	-Wall -Wextra -Werror -g -I $(HDR_DIR)
+# Compilation flags
+CFLAGS		:=	-Wall -Wextra -Werror -g -I $(BHDR_DIR)
 
 # Source files: main, args, setters, time, helpers, utils
-FUN			:=	nihilism.c \
+BFUN		:=	nihilism.c \
 				dialetic.c \
 				praxis.c \
 				atomism.c \
@@ -33,31 +33,30 @@ FUN			:=	nihilism.c \
 				pluralism.c \
 				operationalism.c
 
-
 # Object files
-OBJ			:=	$(FUN:%.c=$(OBJ_DIR)/%.o)
+BOBJ		:=	$(BFUN:%.c=$(BOBJ_DIR)/%.o)
 
-all: $(NAME)
+all: $(BNAME)
 
-$(NAME): $(OBJ)
-	cc $(OBJ) -lpthread -o $@
+$(BNAME): $(BOBJ)
+	cc $(BOBJ) -lpthread -o $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(BOBJ_DIR)/%.o: $(BSRC_DIR)/%.c
 	@mkdir -p $(@D)
 	cc $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(BSRC_DIR)/%.c
+$(BOBJ_DIR)/%.o: $(BSRC_DIR)/%.c
 	@mkdir -p $(@D)
 	@cc $(BCFLAGS) -c $< -o $@
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME} || echo ""
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${BNAME} || echo ""
 
 clean:
 	@[ -d ./objs ] && rm -rf ./objs || echo Object directory doesn\'t exist
 
 fclean: clean
-	@[ -f ./$(NAME) ] && rm $(NAME) || echo Program $(NAME) isn\'t compiled
+	@[ -f ./$(BNAME) ] && rm $(BNAME) || echo Program $(BNAME) isn\'t compiled
 
 re: fclean all
 
