@@ -6,13 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 14:29:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:37:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-t_bool	set_params(t_gazer *beholder, int argc, char **argv)
+static t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 {
 	time_t	die;
 	time_t	eat;

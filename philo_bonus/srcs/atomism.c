@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 10:59:07 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:18:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:35:05 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 time_t	get_time_micro(void)
 {

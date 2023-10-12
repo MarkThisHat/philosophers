@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/10/12 14:30:14 by maalexan         ###   ########.fr        #
+#    Updated: 2023/10/12 16:38:32 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,10 @@ BCFLAGS		:=	-Wall -Wextra -Werror -g -I $(BHDR_DIR)
 # Source files: main, args, setters, time, helpers, utils
 BFUN		:=	nihilism.c \
 				dialetic.c \
-#				praxis.c \
-#				atomism.c \
-#				hermeneutics.c \
-#				heuristics.c \
+				praxis.c \
+				atomism.c \
+				hermeneutics.c \
+				heuristics.c \
 #				fatalism.c \
 #				existentialism.c \
 #				pluralism.c \

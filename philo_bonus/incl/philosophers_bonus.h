@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 12:54:09 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:40:37 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef unsigned int		t_uint;
 typedef enum e_sem
 {
 	OVER,
-    DEAD,
+	DEAD,
 	EAT,
 	SLEEP,
 	THINK
@@ -40,20 +40,22 @@ typedef struct s_phil
 {
 	int				id;
 	_Atomic int		meals_left;
+	_Atomic t_bool	simulating;
 	_Atomic time_t	last_meal;
 }					t_phil;
 
 typedef struct s_gazer
 {
-	t_phil			**philos;
-	pthread_t		threads[2];
-	_Atomic t_bool	simulating;
-	t_uint			highest;
-	time_t			die;
-	time_t			eat;
-	time_t			rest;
-	time_t			meals;
-}					t_gazer;
+	t_phil		**philos;
+	sem_t		*print;
+	sem_t		*forks;
+	pthread_t	thread;
+	t_uint		highest;
+	time_t		die;
+	time_t		eat;
+	time_t		rest;
+	time_t		meals;
+}				t_gazer;
 
 # define TRUE 42
 # define FALSE 0
@@ -74,7 +76,18 @@ typedef struct s_gazer
 # define STR_DEAD "%li %i died\n"
 
 t_gazer	*get_observer(void);
-
+t_bool	set_philosophers(int argc, char **argv);
+t_bool	validate_args(int argc, char **argv);
+void	ft_putstr_fd(char *s, int fd);
+size_t	ft_strlen(const char *src);
+time_t	ft_atoul(const char *str);
+t_bool	ft_isdigit(int c);
+time_t	get_time_micro(void);
+time_t	get_time_mili(void);
+time_t	get_time_current(time_t last_meal);
+int		get_time_left(t_phil *phil, time_t die);
+void	end_dinner(void);
+void	leave_table(int	code);
 #endif
 
 /*

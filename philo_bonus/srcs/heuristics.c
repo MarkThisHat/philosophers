@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:17:12 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:32:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:38:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,6 @@ time_t	ft_atoul(const char *str)
 	while (ft_isdigit(*str))
 		n = 10 * n + (*str++ - '0');
 	return (n);
-}
-
-void	ft_swap(int *a, int *b)
-{
-	int	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
 }
 
 /*
