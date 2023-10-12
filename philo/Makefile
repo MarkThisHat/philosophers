@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/10/11 18:01:11 by maalexan         ###   ########.fr        #
+#    Updated: 2023/10/12 11:46:03 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,17 @@ HDR_DIR		:=	./incl
 # Compilation flags (remove the g)
 CFLAGS		:=	-Wall -Wextra -Werror -g -I $(HDR_DIR)
 
-# Source files: main, args, setters, time, helpers, utils
-FUN			:=	nihilism.c \
-				dialetic.c \
-				praxis.c \
-				atomism.c \
-				hermeneutics.c \
-				heuristics.c \
-				fatalism.c \
-				existentialism.c \
-				pluralism.c \
-				operationalism.c
-
+# Source files
+FUN			:=	main.c \
+				args.c \
+				setters.c \
+				time.c \
+				helpers.c \
+				utils.c \
+				threads.c \
+				philos.c \
+				mutexes.c \
+				locks.c
 
 # Object files
 OBJ			:=	$(FUN:%.c=$(OBJ_DIR)/%.o)
