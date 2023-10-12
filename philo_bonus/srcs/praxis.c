@@ -6,11 +6,27 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 17:25:49 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:54:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
+
+static	t_bool	set_semaphores(t_gazer *beholder)
+{
+	beholder->forks = sem_open("forks", O_CREAT, S_IRWXU, beholder->highest);
+	if (beholder->forks == SEM_FAILED)
+		return (FALSE);
+	beholder->print = sem_open("print", O_CREAT, S_IRWXU, 1);
+	if (beholder->print == SEM_FAILED)
+	{
+		sem_close(beholder->forks);
+		beholder->forks = NULL;
+		sem_unlink("forks");
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 static t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 {
@@ -31,12 +47,6 @@ static t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 	beholder->eat = eat;
 	beholder->rest = rest;
 	beholder->meals = meals;
-	beholder->forks = sem_open("forks", O_CREAT, S_IRWXU, beholder->highest);
-	if (beholder->forks == SEM_FAILED)
-		return (FALSE);
-	beholder->print = sem_open("print", O_CREAT, S_IRWXU, 1);
-	if (beholder->print == SEM_FAILED)
-		return (FALSE);
 	return (TRUE);
 }
 
@@ -79,6 +89,8 @@ t_bool	set_philosophers(int argc, char **argv)
 	if (!beholder->philos)
 		return (FALSE);
 	if (!set_the_table(beholder, beholder->highest))
+		return (free_gazer(beholder));
+	if (!set_semaphores(beholder))
 		return (free_gazer(beholder));
 	set_philosophers_stats(beholder, beholder->highest);
 	return (TRUE);
