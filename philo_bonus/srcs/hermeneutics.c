@@ -6,20 +6,20 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 16:40:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:28:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 t_bool	over_and_out(t_gazer *beholder)
 {
-	t_uint	i;
+	/*t_uint	i;
 
 	i = -1;
 	while (++i < beholder->highest)
-		beholder->philos[i]->state = OVER;
-	return (END);
+		beholder->philos[i]->state = OVER;*/
+	return (beholder->die);
 }
 
 t_bool	clear_guests(t_gazer *beholder, int max)
@@ -38,20 +38,30 @@ t_bool	free_gazer(t_gazer *beholder)
 	return (FALSE);
 }
 
-void	end_dinner(void)
+void	end_dinner(int	final)
 {
 	t_gazer	*beholder;
 
 	beholder = get_observer();
 	clear_guests(beholder, beholder->highest);
-	free(beholder->threads);
-	free(beholder->mutexes);
+	if (beholder->forks)
+	{
+		sem_close(beholder->forks);
+		if (final)
+			sem_unlink("forks");
+	}
+	if (beholder->print)
+	{
+		sem_close(beholder->print);
+		if (final)
+			sem_unlink("print");
+	}
 	free_gazer(beholder);
 }
 
 void	leave_table(int code)
 {
-	end_dinner();
+	end_dinner(0);
 	exit(code);
 }
 

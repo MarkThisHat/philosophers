@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:42:56 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:19:51 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:24:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 static t_bool	invalid_arguments(char *program_name)
 {

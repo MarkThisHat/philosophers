@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 16:37:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:25:49 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ static t_bool	set_params(t_gazer *beholder, int argc, char **argv)
 	beholder->eat = eat;
 	beholder->rest = rest;
 	beholder->meals = meals;
+	beholder->forks = sem_open("forks", O_CREAT, S_IRWXU, beholder->highest);
+	if (beholder->forks == SEM_FAILED)
+		return (FALSE);
+	beholder->print = sem_open("print", O_CREAT, S_IRWXU, 1);
+	if (beholder->print == SEM_FAILED)
+		return (FALSE);
 	return (TRUE);
 }
 

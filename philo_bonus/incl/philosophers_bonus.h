@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 16:40:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:26:27 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,14 @@ void	ft_putstr_fd(char *s, int fd);
 size_t	ft_strlen(const char *src);
 time_t	ft_atoul(const char *str);
 t_bool	ft_isdigit(int c);
+t_bool	over_and_out(t_gazer *beholder);
+t_bool	clear_guests(t_gazer *beholder, int max);
+t_bool	free_gazer(t_gazer *beholder);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);
 int		get_time_left(t_phil *phil, time_t die);
-void	end_dinner(void);
+void	end_dinner(int final);
 void	leave_table(int	code);
 #endif
 
