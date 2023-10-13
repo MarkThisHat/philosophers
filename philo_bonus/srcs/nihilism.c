@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 22:51:58 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:41:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ t_gazer	*get_observer(void)
 
 int	main(int argc, char **argv)
 {
-	int	end;
-end=1;
 	if (!validate_args(argc, argv))
 		return (1);
 	if (!set_philosophers(argc, argv))
 		return (1);
-//	end = threads_of_fate(get_observer());
+	forking_it(get_observer());
 	end_dinner(42);
-	return (end);
+
 }
 
 /*

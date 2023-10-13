@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 23:24:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:47:32 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 
 void	sleeping(t_phil *phil, time_t rest)
 {
@@ -30,7 +30,7 @@ void	eating(t_phil *phil, t_gazer *beholder)
 		usleep(beholder->eat);
 	while (phil->held_forks)
 	{
-		sem_post(beholder->forks)
+		sem_post(beholder->forks);
 		phil->held_forks--;
 	}
 	sleeping(phil, get_observer()->rest);
@@ -53,11 +53,8 @@ static void	pick_fork(t_phil *phil, t_gazer *beholder)
 	eating(phil, beholder);
 }
 
-static t_phil	*loneliness(t_phil *phil)
+static t_phil	*loneliness(t_gazer *beholder)
 {
-	t_gazer	*beholder;
-
-	beholder = get_observer();
 	sem_wait(beholder->forks);
 	usleep(beholder->die);
 	sem_post(beholder->forks);
@@ -70,7 +67,7 @@ void	*have_dinner(void *arg)
 
 	phil = (t_phil *)arg;
 	if (get_observer()->highest == 1)
-		return (loneliness(phil));
+		return (loneliness(get_observer()));
 	while (!phil->terminate)
 		pick_fork(phil, get_observer());
 	return (NULL);

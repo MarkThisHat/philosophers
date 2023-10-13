@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 14:11:41 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:49:13 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,17 @@ void	*hold_philo(void *arg)
 	beholder = (t_gazer *)arg;
 	sem_wait(beholder->philo->done);
 	beholder->philo->terminate = 1;
-	pthread_join(beholder->thread[1]);
+	pthread_join(beholder->thread[1], NULL);
+	return (NULL);
 }
 
 void	threads_of_fate(t_gazer *beholder, int id)
 {
 	beholder->philo->id = id;
-	pthread_create(beholder->thread[0], NULL, have_dinner, beholder->philo);
+	pthread_create(&beholder->thread[0], NULL, have_dinner, beholder->philo);
 	if (id % 2)
 		usleep(50);
-	pthread_create(beholder->thread[1], NULL, hold_philo, beholder);
+	pthread_create(&beholder->thread[1], NULL, hold_philo, beholder);
 	attend_dinner(beholder);
 	while (!beholder->philo->terminate)
 		usleep(1000);

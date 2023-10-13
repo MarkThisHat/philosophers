@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 14:11:30 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:48:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ time_t	ft_atoul(const char *str);
 t_bool	ft_isdigit(int c);
 void	death_cry(t_phil *phil);
 void	over_and_out(t_gazer *beholder);
+int		forking_it(t_gazer *beholder);
 void	loop_simulation(t_gazer *beholder);
 void	threads_of_fate(t_gazer *beholder, int id);
 t_bool	free_gazer(t_gazer *beholder);
@@ -87,6 +88,7 @@ time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);
 int		get_time_left(t_phil *phil, time_t die);
 t_bool	printer(char *str, t_phil *phil);
+void	*have_dinner(void *arg);
 void	end_dinner(int final);
 void	leave_table(int	code);
 #endif
