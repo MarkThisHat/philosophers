@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:41:33 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:41:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:25:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 		return (1);
 	forking_it(get_observer());
 	end_dinner(42);
-
 }
 
 /*

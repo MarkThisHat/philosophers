@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:48:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:26:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		get_time_left(t_phil *phil, time_t die);
 t_bool	printer(char *str, t_phil *phil);
 void	*have_dinner(void *arg);
 void	end_dinner(int final);
-void	leave_table(int	code);
+void	leave_table(int code);
 #endif
 
 /*

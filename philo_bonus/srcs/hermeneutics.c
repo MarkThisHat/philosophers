@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 12:41:47 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:26:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	free_gazer(t_gazer *beholder)
 	return (FALSE);
 }
 
-void	end_dinner(int	final)
+void	end_dinner(int final)
 {
 	t_gazer	*beholder;
 
@@ -34,23 +34,23 @@ void	end_dinner(int	final)
 	{
 		sem_close(beholder->forks);
 		if (final)
-			sem_unlink("forks");
+			sem_unlink("/forks");
 	}
 	if (beholder->print)
 	{
 		sem_close(beholder->print);
 		if (final)
-			sem_unlink("print");
+			sem_unlink("/print");
 	}
 	if (beholder->print)
 	{
 		sem_close(beholder->end);
 		if (final)
-			sem_unlink("end");
+			sem_unlink("/end");
 	}
 	free_gazer(beholder);
 	if (final)
-		sem_unlink("philo_done");
+		sem_unlink("/philo_done");
 }
 
 void	leave_table(int code)

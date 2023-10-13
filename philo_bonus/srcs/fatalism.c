@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:45:16 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:26:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*wait_child(void *arg)
 	i = -1;
 	while (++i < beholder->highest)
 		kill(beholder->pids[i], SIGCONT);
-	pthread_join(beholder->thread[0], NULL);
 	return (NULL);
 }
 
@@ -46,8 +45,8 @@ int	wait_all(pid_t *pids, int max)
 
 int	forking_it(t_gazer *beholder)
 {
-	int proceed;
-	t_uint  i;
+	t_uint	i;
+	int		proceed;
 
 	i = -1;
 	proceed = 0;
@@ -60,13 +59,11 @@ int	forking_it(t_gazer *beholder)
 		beholder->pids[i] = fork();
 		if (beholder->pids[i] < 0)
 			return (FALSE);
-		else if (beholder->pids[i] > 0)
+		else if (beholder->pids[i] == 0)
 			threads_of_fate(beholder, i + 1);
 		i++;
-	
 	}
 	pthread_create(&beholder->thread[0], NULL, wait_child, beholder);
-//	pthread_create(beholder->thread[1], NULL, wait_philo, beholder);
 	while (!proceed)
 		proceed = wait_all(beholder->pids, beholder->highest);
 	return (0);

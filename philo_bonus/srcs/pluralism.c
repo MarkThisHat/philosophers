@@ -6,49 +6,59 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:49:13 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:25:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
-
-void	attend_dinner(t_gazer *beholder)
-{
-	while (!beholder->philo->terminate)
-	{
-		usleep(100);
-		loop_simulation(beholder);
-	}
-	pthread_join(beholder->thread[0], NULL);
-}
 
 void	*hold_philo(void *arg)
 {
 	t_gazer	*beholder;
 
 	beholder = (t_gazer *)arg;
-	sem_wait(beholder->philo->done);
-	beholder->philo->terminate = 1;
-	pthread_join(beholder->thread[1], NULL);
+	sem_wait(beholder->end);
+	beholder->philo->terminate = END;
 	return (NULL);
+}
+
+static time_t	time_of_death(t_phil *philo, time_t die)
+{
+	return (philo->last_meal + die);
+}
+
+void	loop_simulation(t_gazer *beholder)
+{
+	time_t	demise;
+	time_t	time;
+
+	time = get_time_micro();
+	demise = time_of_death(beholder->philo, beholder->die);
+	if (beholder->meals && !beholder->philo->meals_left)
+	{
+		sem_wait(get_observer()->print);
+		over_and_out(beholder);
+	}
+	else if (time > demise)
+		death_cry(beholder->philo);
 }
 
 void	threads_of_fate(t_gazer *beholder, int id)
 {
 	beholder->philo->id = id;
-	pthread_create(&beholder->thread[0], NULL, have_dinner, beholder->philo);
 	if (id % 2)
 		usleep(50);
+	pthread_create(&beholder->thread[0], NULL, have_dinner, beholder->philo);
 	pthread_create(&beholder->thread[1], NULL, hold_philo, beholder);
-	attend_dinner(beholder);
 	while (!beholder->philo->terminate)
+	{
 		usleep(1000);
+		loop_simulation(beholder);
+	}
+	pthread_join(beholder->thread[0], NULL);
+	pthread_join(beholder->thread[1], NULL);
 	leave_table(0);
 }
-
-/*
-pthread_create(beholder->thread, NULL, have_dinner, beholder->philo);
-pthread_join(beholder->thread, NULL);*/
 
 /*
 **	In the area of philosophy of the mind, distinguishes a position
