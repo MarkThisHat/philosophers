@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 22:58:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 07:39:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ t_bool	over_and_out(t_gazer *beholder)
 	while (++i < beholder->highest)
 		beholder->philos[i]->state = OVER;*/
 	return (beholder->die);
-}
-
-t_bool	clear_guests(t_gazer *beholder, int max)
-{
-	int	i;
-
-	i = 0;
-	while (i < max)
-		free(beholder->philos[i++]);
-	return (FALSE);
 }
 
 t_bool	free_gazer(t_gazer *beholder)
@@ -46,7 +36,6 @@ void	end_dinner(int	final)
 	t_gazer	*beholder;
 
 	beholder = get_observer();
-	clear_guests(beholder, beholder->highest);
 	if (beholder->forks)
 	{
 		sem_close(beholder->forks);

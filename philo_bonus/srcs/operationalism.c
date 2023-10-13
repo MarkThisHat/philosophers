@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:08:42 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 23:11:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 07:36:16 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ t_bool	printer(char *str, t_phil *phil)
 	sem_post(get_observer()->print);
 	return (TRUE);
 }
+
+void	death_cry(t_phil *phil)
+{
+	sem_wait(get_observer()->print);
+	printf(STR_DEAD, get_time_mili(), phil->id);
+	sem_post(get_observer()->print);
+}
+
 
 /*
 **	Operationalism:

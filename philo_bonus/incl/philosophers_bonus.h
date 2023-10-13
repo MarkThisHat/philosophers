@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 23:20:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 07:53:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@
 typedef int					t_bool;
 typedef unsigned int		t_uint;
 
-typedef enum e_sem
-{
-	OVER,
-	DEAD,
-	EAT,
-	SLEEP,
-	THINK
-}	t_sem;
-
 typedef struct s_phil
 {
 	int				id;
@@ -47,7 +38,7 @@ typedef struct s_phil
 
 typedef struct s_gazer
 {
-	t_phil		**philos;
+	t_phil		*philo;
 	sem_t		*print;
 	sem_t		*forks;
 	sem_t		*end;
@@ -86,7 +77,6 @@ size_t	ft_strlen(const char *src);
 time_t	ft_atoul(const char *str);
 t_bool	ft_isdigit(int c);
 t_bool	over_and_out(t_gazer *beholder);
-t_bool	clear_guests(t_gazer *beholder, int max);
 t_bool	free_gazer(t_gazer *beholder);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);
