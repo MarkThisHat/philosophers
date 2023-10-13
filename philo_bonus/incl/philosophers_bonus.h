@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 07:53:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:51:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_phil
 {
 	int				id;
 	int				held_forks;
+	sem_t			*done;
 	_Atomic int		meals_left;
 	_Atomic t_bool	terminate;
 	_Atomic time_t	last_meal;
@@ -43,7 +44,7 @@ typedef struct s_gazer
 	sem_t		*forks;
 	sem_t		*end;
 	pid_t		*pids;
-	pthread_t	thread;
+	pthread_t	thread[2];
 	t_uint		highest;
 	time_t		die;
 	time_t		eat;
@@ -76,7 +77,9 @@ void	ft_putstr_fd(char *s, int fd);
 size_t	ft_strlen(const char *src);
 time_t	ft_atoul(const char *str);
 t_bool	ft_isdigit(int c);
-t_bool	over_and_out(t_gazer *beholder);
+void	death_cry(t_phil *phil);
+void	over_and_out(t_gazer *beholder);
+void	loop_simulation(t_gazer *beholder);
 t_bool	free_gazer(t_gazer *beholder);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);

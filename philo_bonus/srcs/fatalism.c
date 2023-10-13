@@ -6,30 +6,27 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 23:18:16 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:14:07 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-static void	diffuse_time(t_phil **philos, time_t time, t_uint amount)
+int	forking_it(t_gazer *beholder)
 {
-	t_uint	i;
+	t_uint  i;
 
-	i = 0;
-	while (i < amount)
-		philos[i++]->last_meal = time;
-}
-
-int	threads_of_fate(t_gazer *beholder)
-{
-	diffuse_time(beholder->philos, get_time_micro(), beholder->highest);
-	while (TRUE)
-	{
-		usleep(100);
-		break ;
-	}
-	return (0);
+    i = 0;
+    beholder->philos->last_meal = get_time_micro() + 1000;
+    while (i < beholder->highest)
+    {
+        beholder->pid[i] = fork();
+        if (beholder->pid[i] < 0)
+            return (FALSE);
+        else if (beholder->pid[i])
+    }
+	usleep(100);
+	return (TRUE);
 }
 
 /*

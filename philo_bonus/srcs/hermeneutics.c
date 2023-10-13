@@ -6,26 +6,20 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 07:39:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:41:47 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-t_bool	over_and_out(t_gazer *beholder)
-{
-	/*t_uint	i;
-
-	i = -1;
-	while (++i < beholder->highest)
-		beholder->philos[i]->state = OVER;*/
-	return (beholder->die);
-}
-
 t_bool	free_gazer(t_gazer *beholder)
 {
-	if (beholder->philos)
-		free(beholder->philos);
+	if (beholder->philo)
+	{
+		if (beholder->philo->done)
+			sem_close(beholder->philo->done);
+		free(beholder->philo);
+	}
 	if (beholder->pids)
 		free(beholder->pids);
 	return (FALSE);
@@ -55,6 +49,8 @@ void	end_dinner(int	final)
 			sem_unlink("end");
 	}
 	free_gazer(beholder);
+	if (final)
+		sem_unlink("philo_done");
 }
 
 void	leave_table(int code)
