@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 11:13:39 by maalexan          #+#    #+#              #
-#    Updated: 2023/10/12 16:38:32 by maalexan         ###   ########.fr        #
+#    Updated: 2023/10/12 23:12:23 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ BFUN		:=	nihilism.c \
 				atomism.c \
 				hermeneutics.c \
 				heuristics.c \
+				operationalism.c \
 #				fatalism.c \
 #				existentialism.c \
 #				pluralism.c \
-#				operationalism.c
 
 # Object files
 BOBJ		:=	$(BFUN:%.c=$(BOBJ_DIR)/%.o)

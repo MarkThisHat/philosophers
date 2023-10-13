@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 17:54:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:56:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@ static	t_bool	set_semaphores(t_gazer *beholder)
 		sem_close(beholder->forks);
 		beholder->forks = NULL;
 		sem_unlink("forks");
+		return (FALSE);
+	}
+	beholder->end = sem_open("end", O_CREAT, S_IRWXU, 1);
+	if (beholder->end == SEM_FAILED)
+	{
+		sem_close(beholder->forks);
+		beholder->forks = NULL;
+		sem_unlink("forks");
+		sem_close(beholder->print);
+		beholder->print = NULL;
+		sem_unlink("print");
 		return (FALSE);
 	}
 	return (TRUE);
@@ -88,6 +99,9 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder->philos = malloc(sizeof(t_phil *) * beholder->highest);
 	if (!beholder->philos)
 		return (FALSE);
+	beholder->pids = malloc(sizeof(pid_t) * beholder->highest);
+	if (!beholder->pids)
+		return (free_gazer(beholder));
 	if (!set_the_table(beholder, beholder->highest))
 		return (free_gazer(beholder));
 	if (!set_semaphores(beholder))

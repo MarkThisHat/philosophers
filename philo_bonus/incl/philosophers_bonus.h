@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 17:26:27 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:20:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef enum e_sem
 typedef struct s_phil
 {
 	int				id;
+	int				held_forks;
 	_Atomic int		meals_left;
-	_Atomic t_bool	simulating;
+	_Atomic t_bool	terminate;
 	_Atomic time_t	last_meal;
 }					t_phil;
 
@@ -49,6 +50,8 @@ typedef struct s_gazer
 	t_phil		**philos;
 	sem_t		*print;
 	sem_t		*forks;
+	sem_t		*end;
+	pid_t		*pids;
 	pthread_t	thread;
 	t_uint		highest;
 	time_t		die;
@@ -89,6 +92,7 @@ time_t	get_time_micro(void);
 time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);
 int		get_time_left(t_phil *phil, time_t die);
+t_bool	printer(char *str, t_phil *phil);
 void	end_dinner(int final);
 void	leave_table(int	code);
 #endif

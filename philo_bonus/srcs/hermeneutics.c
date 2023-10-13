@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 17:28:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:58:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_bool	clear_guests(t_gazer *beholder, int max)
 
 t_bool	free_gazer(t_gazer *beholder)
 {
-	free(beholder->philos);
+	if (beholder->philos)
+		free(beholder->philos);
+	if (beholder->pids)
+		free(beholder->pids);
 	return (FALSE);
 }
 
@@ -55,6 +58,12 @@ void	end_dinner(int	final)
 		sem_close(beholder->print);
 		if (final)
 			sem_unlink("print");
+	}
+	if (beholder->print)
+	{
+		sem_close(beholder->end);
+		if (final)
+			sem_unlink("end");
 	}
 	free_gazer(beholder);
 }
