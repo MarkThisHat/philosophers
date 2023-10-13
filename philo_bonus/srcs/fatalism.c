@@ -6,26 +6,67 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 13:14:07 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:57:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
+void	*wait_child(void *arg)
+{
+	t_uint	i;
+	t_gazer	*beholder;
+
+	i = -1;
+	beholder = (t_gazer *)arg;
+	sem_wait(beholder->philo->done);
+	while (++i < beholder->highest)
+		kill(beholder->pids[i], SIGSTOP);
+	i = -1;
+	while (++i < beholder->highest)
+		sem_post(beholder->end);
+	i = -1;
+	while (++i < beholder->highest)
+		kill(beholder->pids[i], SIGCONT);
+	pthread_join(beholder->thread[0]);
+}
+
+int	wait_all(pid_t *pids, int max)
+{
+	int	i;
+
+	i = -1;
+	while (++i < max)
+		if (pids[i] > 0)
+			waitpid(pids[i]);
+	return (TRUE);
+}
+
 int	forking_it(t_gazer *beholder)
 {
+	int proceed;
 	t_uint  i;
 
-    i = 0;
-    beholder->philos->last_meal = get_time_micro() + 1000;
-    while (i < beholder->highest)
-    {
-        beholder->pid[i] = fork();
-        if (beholder->pid[i] < 0)
-            return (FALSE);
-        else if (beholder->pid[i])
-    }
-	usleep(100);
+	i = -1;
+	proceed = 0;
+	while (++i < beholder->highest)
+		beholder->pid[i] = 0;
+	i = 0;
+	beholder->philos->last_meal = get_time_micro() + 1000;
+	while (i < beholder->highest)
+	{
+		beholder->pid[i] = fork();
+		if (beholder->pid[i] < 0)
+			return (FALSE);
+		else if (beholder->pid[i] > 0)
+			threads_of_fate(beholder, i + 1);
+		i++;
+	
+	}
+	pthread_create(beholder->thread[0], NULL, wait_child, beholder);
+//	pthread_create(beholder->thread[1], NULL, wait_philo, beholder);
+	while (!proceed)
+		proceed = wait_all(beholder->pids, beholder->highest);
 	return (TRUE);
 }
 

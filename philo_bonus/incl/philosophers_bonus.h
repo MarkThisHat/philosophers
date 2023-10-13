@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 12:51:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:11:30 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_bool	ft_isdigit(int c);
 void	death_cry(t_phil *phil);
 void	over_and_out(t_gazer *beholder);
 void	loop_simulation(t_gazer *beholder);
+void	threads_of_fate(t_gazer *beholder, int id);
 t_bool	free_gazer(t_gazer *beholder);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);
