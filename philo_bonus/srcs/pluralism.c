@@ -6,12 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 20:25:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:14:23 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
+/*
+**	Child
+*/
 void	*hold_philo(void *arg)
 {
 	t_gazer	*beholder;
@@ -22,11 +25,17 @@ void	*hold_philo(void *arg)
 	return (NULL);
 }
 
+/*
+**	Child
+*/
 static time_t	time_of_death(t_phil *philo, time_t die)
 {
 	return (philo->last_meal + die);
 }
 
+/*
+**	Child
+*/
 void	loop_simulation(t_gazer *beholder)
 {
 	time_t	demise;
@@ -43,6 +52,9 @@ void	loop_simulation(t_gazer *beholder)
 		death_cry(beholder->philo);
 }
 
+/*
+**	Child
+*/
 void	threads_of_fate(t_gazer *beholder, int id)
 {
 	beholder->philo->id = id;

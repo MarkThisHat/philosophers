@@ -6,12 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 20:26:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:11:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
+/*
+**	Parent
+*/
 void	*wait_child(void *arg)
 {
 	t_uint	i;
@@ -31,6 +34,9 @@ void	*wait_child(void *arg)
 	return (NULL);
 }
 
+/*
+**	Parent
+*/
 int	wait_all(pid_t *pids, int max)
 {
 	int	i;
@@ -66,6 +72,7 @@ int	forking_it(t_gazer *beholder)
 	pthread_create(&beholder->thread[0], NULL, wait_child, beholder);
 	while (!proceed)
 		proceed = wait_all(beholder->pids, beholder->highest);
+	pthread_join(beholder->thread[0], NULL);
 	return (0);
 }
 

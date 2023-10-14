@@ -6,12 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:08:42 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 20:22:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:12:08 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
+/*
+**	Child
+*/
 t_bool	printer(char *str, t_phil *phil)
 {
 	sem_wait(get_observer()->print);
@@ -25,6 +28,9 @@ t_bool	printer(char *str, t_phil *phil)
 	return (TRUE);
 }
 
+/*
+**	Child
+*/
 void	death_cry(t_phil *phil)
 {
 	sem_wait(get_observer()->print);
@@ -32,6 +38,9 @@ void	death_cry(t_phil *phil)
 	over_and_out(get_observer());
 }
 
+/*
+**	Child
+*/
 void	over_and_out(t_gazer *beholder)
 {
 	sem_post(beholder->philo->done);

@@ -6,12 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:47:32 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:12:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
+/*
+**	Child
+*/
 void	sleeping(t_phil *phil, time_t rest)
 {
 	printer(STR_SLEEP, phil);
@@ -20,6 +23,9 @@ void	sleeping(t_phil *phil, time_t rest)
 	printer(STR_THINK, phil);
 }
 
+/*
+**	Child
+*/
 void	eating(t_phil *phil, t_gazer *beholder)
 {
 	printer(STR_EAT, phil);
@@ -36,6 +42,9 @@ void	eating(t_phil *phil, t_gazer *beholder)
 	sleeping(phil, get_observer()->rest);
 }
 
+/*
+**	Child
+*/
 static void	pick_fork(t_phil *phil, t_gazer *beholder)
 {
 	if (phil->terminate)
@@ -53,6 +62,9 @@ static void	pick_fork(t_phil *phil, t_gazer *beholder)
 	eating(phil, beholder);
 }
 
+/*
+**	Child
+*/
 static t_phil	*loneliness(t_gazer *beholder)
 {
 	sem_wait(beholder->forks);
@@ -61,6 +73,9 @@ static t_phil	*loneliness(t_gazer *beholder)
 	return (NULL);
 }
 
+/*
+**	Child
+*/
 void	*have_dinner(void *arg)
 {
 	t_phil	*phil;
