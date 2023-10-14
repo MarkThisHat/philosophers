@@ -6,70 +6,74 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 21:14:23 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:59:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
 /*
-**	Child
+**	Parent
 */
-void	*hold_philo(void *arg)
+void	*wait_child(void *arg)
 {
+	t_uint	i;
 	t_gazer	*beholder;
 
+	i = -1;
 	beholder = (t_gazer *)arg;
-	sem_wait(beholder->end);
-	beholder->philo->terminate = END;
+	sem_wait(beholder->philo->done);
+	while (++i < beholder->highest)
+		kill(beholder->pids[i], SIGSTOP);
+	i = -1;
+	while (++i < beholder->highest)
+		sem_post(beholder->end);
+	i = -1;
+	while (++i < beholder->highest)
+		kill(beholder->pids[i], SIGCONT);
 	return (NULL);
 }
 
 /*
-**	Child
+**	Parent
 */
-static time_t	time_of_death(t_phil *philo, time_t die)
+int	wait_all(pid_t *pids, int max)
 {
-	return (philo->last_meal + die);
+	int	i;
+	int	status;
+
+	i = -1;
+	while (++i < max)
+		if (pids[i] > 0)
+			waitpid(pids[i], &status, 0);
+	return (TRUE);
 }
 
-/*
-**	Child
-*/
-void	loop_simulation(t_gazer *beholder)
+int	forking_it(t_gazer *beholder)
 {
-	time_t	demise;
-	time_t	time;
+	t_uint	i;
+	int		proceed;
 
-	time = get_time_micro();
-	demise = time_of_death(beholder->philo, beholder->die);
-	if (beholder->meals && !beholder->philo->meals_left)
+	i = -1;
+	proceed = 0;
+	while (++i < beholder->highest)
+		beholder->pids[i] = 0;
+	i = 0;
+	beholder->philo->last_meal = get_time_micro() + 1000;
+	while (i < beholder->highest)
 	{
-		sem_wait(get_observer()->print);
-		over_and_out(beholder);
+		beholder->pids[i] = fork();
+		if (beholder->pids[i] < 0)
+			return (FALSE);
+		else if (beholder->pids[i] == 0)
+			threads_of_fate(beholder, i + 1);
+		i++;
 	}
-	else if (time > demise)
-		death_cry(beholder->philo);
-}
-
-/*
-**	Child
-*/
-void	threads_of_fate(t_gazer *beholder, int id)
-{
-	beholder->philo->id = id;
-	if (id % 2)
-		usleep(50);
-	pthread_create(&beholder->thread[0], NULL, have_dinner, beholder->philo);
-	pthread_create(&beholder->thread[1], NULL, hold_philo, beholder);
-	while (!beholder->philo->terminate)
-	{
-		usleep(1000);
-		loop_simulation(beholder);
-	}
+	pthread_create(&beholder->thread[0], NULL, wait_child, beholder);
+	while (!proceed)
+		proceed = wait_all(beholder->pids, beholder->highest);
 	pthread_join(beholder->thread[0], NULL);
-	pthread_join(beholder->thread[1], NULL);
-	leave_table(0);
+	return (0);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 20:26:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:57:57 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef unsigned int		t_uint;
 typedef struct s_phil
 {
 	int				id;
-	int				held_forks;
 	sem_t			*done;
+	_Atomic int		held_forks;
 	_Atomic int		meals_left;
 	_Atomic t_bool	terminate;
 	_Atomic time_t	last_meal;
