@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 20:26:03 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/14 09:57:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	end_dinner(int final)
 		if (final)
 			sem_unlink("/print");
 	}
-	if (beholder->print)
+	if (beholder->end)
 	{
 		sem_close(beholder->end);
 		if (final)
