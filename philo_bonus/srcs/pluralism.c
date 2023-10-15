@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/14 18:59:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 09:54:59 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*wait_child(void *arg)
 {
 	t_uint	i;
 	t_gazer	*beholder;
-
+usleep(900);
 	i = -1;
 	beholder = (t_gazer *)arg;
 	sem_wait(beholder->philo->done);
