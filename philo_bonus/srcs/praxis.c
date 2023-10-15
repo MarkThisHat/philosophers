@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 09:56:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 17:17:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static	t_bool	set_semaphores(t_gazer *beholder)
 	beholder->end = sem_open("/end", O_CREAT, S_IRWXU, beholder->highest);
 	if (beholder->end == SEM_FAILED)
 		return (FALSE);
-	beholder->philo->done = sem_open("/philo_done", O_CREAT, S_IRWXU, beholder->highest);
+	beholder->philo->done = sem_open("/philo_done", \
+	O_CREAT, S_IRWXU, beholder->highest);
 	if (beholder->philo->done == SEM_FAILED)
 		return (FALSE);
 	return (TRUE);
