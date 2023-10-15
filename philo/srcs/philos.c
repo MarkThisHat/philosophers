@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:46:23 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 19:04:27 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	sleeping(t_phil *phil, time_t rest)
 	if (phil->state != OVER)
 		phil->state = THINKING;
 	printer(STR_THINK, phil->id);
+	if (!(phil->id % 2))
+		usleep(50);
 }
 
 void	eating(t_phil *phil, t_gazer *beholder)
@@ -68,6 +70,7 @@ void	*have_dinner(void *arg)
 	t_phil	*phil;
 
 	phil = (t_phil *)arg;
+	usleep(((phil->id % 2) * 50) + 1);
 	if (get_observer()->highest == 1)
 		return (loneliness(phil));
 	while (phil->state != OVER)
