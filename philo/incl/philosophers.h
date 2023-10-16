@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/11 12:59:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:24:16 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_phil
 {
 	int				id;
 	_Atomic int		state;
-	_Atomic int		meals_left;
+	_Atomic int		meals_eaten;
 	_Atomic time_t	last_meal;
 	int				first_fork;
 	int				second_fork;
@@ -48,12 +48,13 @@ typedef struct s_gazer
 	pthread_t		*threads;
 	pthread_mutex_t	printer;
 	pthread_mutex_t	*mutexes;
+	int				meals;
 	_Atomic t_bool	simulating;
+	_Atomic int		sated;
 	t_uint			highest;
 	time_t			die;
 	time_t			eat;
 	time_t			rest;
-	time_t			meals;
 }					t_gazer;
 
 # define TRUE 42

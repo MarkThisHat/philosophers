@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:46:27 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:13:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_bool	loop_simulation(t_gazer *beholder)
 	while (i < beholder->highest)
 	{
 		demise = time_of_death(beholder->philos[i], beholder->die);
-		if (beholder->meals && !beholder->philos[i]->meals_left)
+		if (beholder->sated == (int)beholder->highest)
 		{
 			beholder->simulating = over_and_out(beholder);
 			return (FALSE);

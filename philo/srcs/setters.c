@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:46:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:17:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	set_philosophers_stats(t_gazer *beholder, t_uint amount)
 		else
 			left = amount - 1;
 		beholder->philos[i]->id = i + 1;
-		beholder->philos[i]->meals_left = get_observer()->meals;
 		beholder->philos[i]->state = THINKING;
 		forks_priority(beholder->philos[i], left, right);
 		i++;

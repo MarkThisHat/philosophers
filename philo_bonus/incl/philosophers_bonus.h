@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/14 18:57:57 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:11:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		forking_it(t_gazer *beholder);
 void	loop_simulation(t_gazer *beholder);
 void	threads_of_fate(t_gazer *beholder, int id);
 t_bool	free_gazer(t_gazer *beholder);
+void	clear_sem(void);
 time_t	get_time_micro(void);
 time_t	get_time_mili(void);
 time_t	get_time_current(time_t last_meal);
