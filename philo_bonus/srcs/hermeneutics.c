@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 21:57:30 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 23:10:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:07:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 t_bool	free_gazer(t_gazer *beholder)
 {
-	if (beholder->philo)
-	{
-		if (beholder->philo->done)
-			sem_close(beholder->philo->done);
-		free(beholder->philo);
-	}
+	if (beholder->philo.done)
+		sem_close(beholder->philo.done);
 	if (beholder->pids)
 		free(beholder->pids);
 	return (FALSE);

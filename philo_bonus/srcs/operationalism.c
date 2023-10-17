@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:08:42 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 21:12:08 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:08:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void	death_cry(t_phil *phil)
 */
 void	over_and_out(t_gazer *beholder)
 {
-	sem_post(beholder->philo->done);
+	sem_post(beholder->philo.done);
 	while (TRUE)
 	{
-		if (beholder->philo->terminate)
+		if (beholder->philo.terminate)
 			break ;
 	}
-	while (beholder->philo->held_forks)
+	while (beholder->philo.held_forks)
 	{
 		sem_post(beholder->forks);
-		beholder->philo->held_forks--;
+		beholder->philo.held_forks--;
 	}
 	sem_post(get_observer()->print);
 	pthread_join(beholder->thread[0], NULL);

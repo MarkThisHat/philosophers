@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 21:53:59 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 23:06:08 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:06:13 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static	t_bool	set_semaphores(t_gazer *beholder)
 	beholder->end = sem_open("/end", O_CREAT, S_IRWXU, beholder->highest);
 	if (beholder->end == SEM_FAILED)
 		return (FALSE);
-	beholder->philo->done = sem_open("/philo_died", \
+	beholder->philo.done = sem_open("/philo_died", \
 	O_CREAT, S_IRWXU, beholder->highest);
-	if (beholder->philo->done == SEM_FAILED)
+	if (beholder->philo.done == SEM_FAILED)
 		return (FALSE);
 	return (TRUE);
 }
@@ -59,11 +59,7 @@ t_bool	set_philosophers(int argc, char **argv)
 	beholder = get_observer();
 	if (!set_params(beholder, argc, argv))
 		return (FALSE);
-	beholder->philo = malloc(sizeof(t_phil));
-	if (!beholder->philo)
-		return (FALSE);
-	*beholder->philo = (t_phil){0};
-	beholder->philo->meals_left = beholder->meals;
+	beholder->philo.meals_left = beholder->meals;
 	beholder->pids = malloc(sizeof(pid_t) * beholder->highest);
 	if (!beholder->pids)
 		return (free_gazer(beholder));

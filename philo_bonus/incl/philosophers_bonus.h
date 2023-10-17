@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 23:11:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:02:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_phil
 
 typedef struct s_gazer
 {
-	t_phil		*philo;
+	t_phil		philo;
 	sem_t		*print;
 	sem_t		*forks;
 	sem_t		*end;

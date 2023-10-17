@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 17:16:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:23:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*wait_child(void *arg)
 	usleep(900);
 	i = -1;
 	beholder = (t_gazer *)arg;
-	sem_wait(beholder->philo->done);
+	sem_wait(beholder->philo.done);
 	while (++i < beholder->highest)
 		kill(beholder->pids[i], SIGSTOP);
 	i = -1;
@@ -60,7 +60,7 @@ int	forking_it(t_gazer *beholder)
 	while (++i < beholder->highest)
 		beholder->pids[i] = 0;
 	i = 0;
-	beholder->philo->last_meal = get_time_micro() + 1000;
+	beholder->philo.last_meal = get_time_micro() + 1000;
 	while (i < beholder->highest)
 	{
 		beholder->pids[i] = fork();

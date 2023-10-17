@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 09:56:31 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:21:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*hold_philo(void *arg)
 
 	beholder = (t_gazer *)arg;
 	sem_wait(beholder->end);
-	beholder->philo->terminate = END;
+	beholder->philo.terminate = END;
 	return (NULL);
 }
 
@@ -42,14 +42,14 @@ void	loop_simulation(t_gazer *beholder)
 	time_t	time;
 
 	time = get_time_micro();
-	demise = time_of_death(beholder->philo, beholder->die);
-	if (beholder->meals && !beholder->philo->meals_left)
+	demise = time_of_death(&beholder->philo, beholder->die);
+	if (beholder->meals && !beholder->philo.meals_left)
 	{
 		sem_wait(get_observer()->print);
 		over_and_out(beholder);
 	}
 	else if (time > demise)
-		death_cry(beholder->philo);
+		death_cry(&beholder->philo);
 }
 
 /*
@@ -57,14 +57,14 @@ void	loop_simulation(t_gazer *beholder)
 */
 void	threads_of_fate(t_gazer *beholder, int id)
 {
-	beholder->philo->id = id;
-	sem_wait(beholder->philo->done);
+	beholder->philo.id = id;
+	sem_wait(beholder->philo.done);
 	sem_wait(beholder->end);
 	if (id % 2)
 		usleep(50);
-	pthread_create(&beholder->thread[0], NULL, have_dinner, beholder->philo);
+	pthread_create(&beholder->thread[0], NULL, have_dinner, &beholder->philo);
 	pthread_create(&beholder->thread[1], NULL, hold_philo, beholder);
-	while (!beholder->philo->terminate)
+	while (!beholder->philo.terminate)
 	{
 		usleep(1000);
 		loop_simulation(beholder);
