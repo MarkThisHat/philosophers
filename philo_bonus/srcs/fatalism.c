@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/17 20:21:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:11:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	threads_of_fate(t_gazer *beholder, int id)
 	beholder->philo.id = id;
 	sem_wait(beholder->philo.done);
 	sem_wait(beholder->end);
-	if (id % 2)
-		usleep(50);
 	pthread_create(&beholder->thread[0], NULL, have_dinner, &beholder->philo);
 	pthread_create(&beholder->thread[1], NULL, hold_philo, beholder);
 	while (!beholder->philo.terminate)

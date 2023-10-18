@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:06:47 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/13 21:12:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:24:57 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ static void	pick_fork(t_phil *phil, t_gazer *beholder)
 	if (!phil->held_forks)
 	{
 		sem_wait(beholder->forks);
+		printer(STR_FORK, phil);
 		phil->held_forks++;
 	}
 	if (phil->held_forks == 1)
 	{
 		sem_wait(beholder->forks);
+		printer(STR_FORK, phil);
 		phil->held_forks++;
 	}
 	eating(phil, beholder);
@@ -67,6 +69,7 @@ static void	pick_fork(t_phil *phil, t_gazer *beholder)
 */
 static t_phil	*loneliness(t_gazer *beholder)
 {
+	printer(STR_FORK, &beholder->philo);
 	sem_wait(beholder->forks);
 	usleep(beholder->die);
 	sem_post(beholder->forks);
