@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 11:35:05 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/12 11:46:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:14:07 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	threads_of_fate(t_gazer *beholder)
 		return (1);
 	while (TRUE)
 	{
-		usleep(100);
+		usleep(OBSERVER_SYNC);
 		if (!simulating())
 			break ;
 	}

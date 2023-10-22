@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:27:29 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/17 20:02:09 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:14:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_gazer
 # define END 8
 # define MAX_PHIL 200
 # define MAX_SET 4294967295
+# define SYNC 900
 # define STR_USAGE " <number of philosophers> \
 <time to die> \
 <time to eat> \

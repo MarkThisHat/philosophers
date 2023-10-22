@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 22:35:25 by maalexan          #+#    #+#             */
-/*   Updated: 2023/10/15 23:13:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:13:54 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*oversee_dinner(void *arg)
 	carry_on = 1;
 	while (carry_on)
 	{
-		usleep(100);
+		usleep(OBSERVER_SYNC);
 		carry_on = loop_simulation((t_gazer *)arg);
 	}
 	return (NULL);
